@@ -1,7 +1,8 @@
 import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme"; // Adjust the import path as needed
 import "./styles/styles.css";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
 import AboutUs from "./components/AboutUs";
 import MissionVision from "./components/MissionVision";
 import Services from "./components/Services";
@@ -13,15 +14,17 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <div>
-      <Header />
-      <Hero />
-      <AboutUs />
-      <MissionVision />
-      <Services />
-      <SuccessCases />
-      <SubscriptionForm />
-      <ContactSection />
-      <Footer />
+      <ThemeProvider theme={theme}>
+        <Header />
+        {/* <Hero /> */}
+        <AboutUs />
+        <MissionVision />
+        <Services />
+        <SuccessCases />
+        <SubscriptionForm />
+        <ContactSection />
+        <Footer />
+      </ThemeProvider>
     </div>
   );
 }
