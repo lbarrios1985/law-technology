@@ -5,6 +5,7 @@ import "./styles/styles.css";
 import Header from "./components/Header";
 import AboutUs from "./components/AboutUs";
 import MissionVision from "./components/MissionVision";
+import Members from "./components/Members";
 import Services from "./components/Services";
 import SuccessCases from "./components/SuccessCases";
 import SubscriptionForm from "./components/SuscriptionForm";
@@ -16,9 +17,9 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <Header />
-        {/* <Hero /> */}
         <AboutUs />
         <MissionVision />
+        <Members />
         <Services />
         <SuccessCases />
         <SubscriptionForm />

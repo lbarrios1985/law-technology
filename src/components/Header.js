@@ -65,6 +65,7 @@ const Header = () => {
                 "Quiénes Somos",
                 "Misión",
                 "Visión",
+                "Nuestro Equipo",
                 "Servicios",
                 "Contacto",
               ].map((text, index) => (
@@ -97,17 +98,18 @@ const Header = () => {
           <CloseIcon />
         </IconButton>
         <List style={{ width: "250px" }}>
-          {["Quiénes Somos", "Misión", "Visión", "Servicios", "Contacto"].map(
-            (text, index) => (
-              <ListItem
-                button
-                key={index}
-                onClick={() => scrollToSection(text)}
-              >
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          {[
+            "Quiénes Somos",
+            "Misión",
+            "Visión",
+            "Nuestro Equipo",
+            "Servicios",
+            "Contacto",
+          ].map((text, index) => (
+            <ListItem button key={index} onClick={() => scrollToSection(text)}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
         </List>
       </Drawer>
       <Box mt={20} />
