@@ -23,6 +23,18 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  // Scroll to section function
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const yOffset = -130; // Altura del AppBar
+      const y =
+        section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+      setIsOpen(false); // Close the drawer after clicking
+    }
+  };
+
   // React Spring animation for the logo
   const logoSpring = useSpring({
     from: { opacity: 0, transform: "translateX(-50px)" },
@@ -32,7 +44,7 @@ const Header = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: "#FFFFFF" }}>
+      <AppBar position="fixed" sx={{ backgroundColor: "#FFFFFF" }}>
         <Toolbar>
           {/* Logo with react-spring animation */}
           <animated.div style={logoSpring}>
@@ -59,7 +71,7 @@ const Header = () => {
                 <Button
                   key={index}
                   color="inherit"
-                  href={`#${text.toLowerCase().replace(/ /g, "-")}`}
+                  onClick={() => scrollToSection(text)}
                 >
                   {text}
                 </Button>
@@ -87,13 +99,18 @@ const Header = () => {
         <List style={{ width: "250px" }}>
           {["Quiénes Somos", "Misión", "Visión", "Servicios", "Contacto"].map(
             (text, index) => (
-              <ListItem button key={index} onClick={toggleDrawer}>
+              <ListItem
+                button
+                key={index}
+                onClick={() => scrollToSection(text)}
+              >
                 <ListItemText primary={text} />
               </ListItem>
             )
           )}
         </List>
       </Drawer>
+      <Box mt={20} />
     </>
   );
 };
