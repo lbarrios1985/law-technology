@@ -1,72 +1,78 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import { useTheme } from "@mui/material/styles";
-import { Typography } from "@mui/material";
+import { Typography, Container, Box, Paper } from "@mui/material";
+
+const sections = [
+  {
+    id: "Quiénes Somos",
+    title: "Quiénes Somos",
+    content:
+      "En Law Technology, somos un equipo de abogados especializados en ofrecer soluciones legales efectivas. Desde 2023, brindamos asesoría de calidad en diversas áreas del derecho, como propiedad intelectual, civil, mercantil, penal y laboral, además de servicios complementarios como marketing marcario e inmobiliario. Nos enfocamos en resolver cada caso de forma integral, con un enfoque innovador y comprometido. Nos guía la excelencia, la integridad y el compromiso con nuestros clientes.",
+  },
+  {
+    id: "Misión",
+    title: "Misión",
+    content:
+      "Nuestro propósito es ofrecer asesoría legal integral y personalizada, enfocada en proteger los derechos y necesidades de nuestros clientes. Nos esforzamos por ser aliados estratégicos, proporcionando soluciones prácticas y seguras.",
+  },
+  {
+    id: "Visión",
+    title: "Visión",
+    content:
+      "Aspiramos a ser el consultorio jurídico de referencia, reconocido por nuestra ética, profesionalismo y la confianza de nuestros clientes, apoyando su éxito a través de un enfoque legal innovador y eficiente.",
+  },
+];
+
+function Section({ id, title, content }) {
+  const springProps = useSpring({
+    opacity: 1,
+    transform: "translateY(0)",
+    from: { opacity: 0, transform: "translateY(20px)" },
+    config: { tension: 220, friction: 120 },
+  });
+  return (
+    <animated.div style={springProps}>
+      <div id={id}>
+        <Paper
+          elevation={3}
+          style={{ padding: "20px", marginBottom: "40px" }}
+        >
+          <Typography variant="h2" color="primary">
+            {title}
+          </Typography>
+          <Typography variant="body1" color="textSecondary" paragraph>
+            {content}
+          </Typography>
+        </Paper>
+      </div>
+    </animated.div>
+  );
+}
 
 const AboutUs = () => {
-  const theme = useTheme();
-  const fadeIn = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-    config: { duration: 1000 },
-  });
-
   return (
-    <animated.section
-      id="about-us"
-      style={{
-        ...styles.section,
-        ...fadeIn,
-        backgroundColor: theme.palette.background.paper,
-      }}
-    >
-      <div id="Quiénes Somos">
+    <Container>
+      <Box sx={{ padding: "60px 0" }}>
+        {/* center the typografy container */}
         <Typography
-          variant="h2"
-          style={{ ...styles.heading, color: theme.palette.primary.main }}
+          variant="h1"
+          color="primary"
+          gutterBottom
+          textAlign="center"
         >
-          Quiénes Somos
+          Bienvenido a Law Technology
         </Typography>
-        <Typography
-          variant="body1"
-          style={{ ...styles.paragraph, color: theme.palette.text.primary }}
-        >
-          En el consultorio jurídico Law technology, somos un equipo de abogados
-          apasionados y comprometidos con la excelencia en la asesoría legal.
-          Fundado en el año 2023 y ubicado en el centro comercial peckas,
-          nuestro consultorio jurídico se distingue por ofrecer servicios
-          jurídicos de alta calidad en una amplia gama de las áreas del derecho.
-          Desde nuestros inicios, nos hemos enfocado en proporcionar soluciones
-          eficaces que respondan a las necesidades de nuestros clientes,
-          contamos con un equipo multidisciplinario de profesionales altamente
-          cualificados, cada uno con gran experiencia en áreas como: propiedad
-          intelectual, derecho civil, mercantil, penal, laboral administrativo
-          así como también brindamos servicios de marketing marcario,
-          inmobiliaria y desarrollo web. Nos enorgullece nuestra capacidad de
-          integrar las diversas ramas del derecho y así brindarle a nuestros
-          clientes una visión holística y soluciones innovadoras. Nos guiamos
-          por los valores de integridad, profesionalismo y dedicación,
-          comprometidos así a tratar cada caso con el máximo cuidado y atención.
-          <strong>¡Somos el equipo de altura en la ciudad de Mérida!</strong>
-        </Typography>
-      </div>
-    </animated.section>
+        {sections.map((section) => (
+          <Section
+            id={section.id}
+            key={section.title}
+            title={section.title}
+            content={section.content}
+          />
+        ))}
+      </Box>
+    </Container>
   );
-};
-
-const styles = {
-  section: {
-    padding: "2rem",
-    borderRadius: "8px",
-    margin: "1rem 0",
-  },
-  heading: {
-    textAlign: "center",
-    marginBottom: "1rem",
-  },
-  paragraph: {
-    lineHeight: "1.6",
-  },
 };
 
 export default AboutUs;

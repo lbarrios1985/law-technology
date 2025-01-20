@@ -1,4 +1,3 @@
-// src/theme.js
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -7,15 +6,29 @@ const theme = createTheme({
       main: "#D4AF37", // Gold
     },
     text: {
-      primary: "#000000", // Black for text
-      secondary: "#333333", // Dark Gray for secondary text
+      primary: "#000000", // Black
+      secondary: "#333333", // Dark Gray
     },
     background: {
-      default: "#FFFFFF", // White for main background
-      paper: "#F5F5F5", // Light Gray for paper surfaces
+      default: "#FFFFFF", // White
+      paper: "#F5F5F5", // Light Gray
     },
     action: {
-      active: "#D4AF37", // Use gold for active elements if needed
+      active: "#D4AF37", // Gold for active elements
+    },
+  },
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+    h1: {
+      fontSize: "2.5rem",
+      fontWeight: "bold",
+    },
+    h2: {
+      fontSize: "2rem",
+      fontWeight: "600",
+    },
+    body1: {
+      fontSize: "1rem",
     },
   },
 });

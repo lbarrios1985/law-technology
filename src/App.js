@@ -4,7 +4,6 @@ import theme from "./theme"; // Adjust the import path as needed
 import "./styles/styles.css";
 import Header from "./components/Header";
 import AboutUs from "./components/AboutUs";
-import MissionVision from "./components/MissionVision";
 import Members from "./components/Members";
 import Services from "./components/Services";
 import SuccessCases from "./components/SuccessCases";
@@ -18,7 +17,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <Header />
         <AboutUs />
-        <MissionVision />
         <Members />
         <Services />
         <SuccessCases />
