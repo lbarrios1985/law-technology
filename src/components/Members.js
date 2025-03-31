@@ -1,86 +1,230 @@
-import React from "react";
-import { Card, CardMedia, CardContent, Typography } from "@mui/material";
-import { useSpring, animated } from "@react-spring/web";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React from 'react';
+import { Box, Container, Typography, Grid, Card, CardContent, CardMedia, IconButton, useTheme } from '@mui/material';
+import { LinkedIn } from '@mui/icons-material';
+import { useInView } from 'react-intersection-observer';
+import { useSpring, animated } from '@react-spring/web';
 
-const TeamCarousel = () => {
-  const teamMembers = [
-    {
-      name: "Hayglee Calderas",
-      image: "images/Hayggle.jpg",
-      specialization: "Especialista en Propiedad Intelectual",
-      activities:
-        "La Abg. Hayglee Calderas ofrece servicios especializados en Propiedad Intelectual, " +
-        "respaldados por su experiencia como Coordinadora Estadal del Servicio Autónomo " +
-        "de la Propiedad Intelectual (SAPI) en Mérida. Brinda seguridad y protección " +
-        "a tus creaciones intelectuales, abarcando tanto Derecho de Autor como Propiedad Industrial. " +
-        "Con su conocimiento y habilidades, asegura los mejores resultados para proteger " +
-        "tus ideas con argumentos legales sólidos, manteniendo siempre ética profesional y confidencialidad.",
-    },
-    {
-      name: "Clara Mejía",
-      image: "images/Clara.jpg",
-      specialization: "Abogada Civil",
-      activities:
-        "La Abg. Clara Mejía es experta en Derecho Civil, especializada en resolver problemas " +
-        "legales de familia, bienes, herencias y otros temas civiles. Fomenta la conciliación " +
-        "como primera opción, utilizando sus habilidades de comunicación y negociación " +
-        "para alcanzar acuerdos favorables. Clara ofrece un servicio dedicado a organizar " +
-        "el presente y construir un futuro sólido, asegurando siempre los mejores intereses de sus clientes " +
-        "con profesionalismo y confidencialidad.",
-    },
-  ];
+const teamMembers = [
+  {
+    name: 'Hayglee Calderas',
+    image: 'images/Hayggle.jpg',
+    specialization: 'Especialista en Propiedad Intelectual',
+    activities:
+      'La Abg. Hayglee Calderas ofrece servicios especializados en Propiedad Intelectual, ' +
+      'respaldados por su experiencia como Coordinadora Estadal del Servicio Autónomo ' +
+      'de la Propiedad Intelectual (SAPI) en Mérida. Brinda seguridad y protección ' +
+      'a tus creaciones intelectuales.',
+    linkedin: 'https://www.linkedin.com/in/hayglee-calderas/',
 
-  const springProps = useSpring({
-    from: { opacity: 0, transform: "scale(0.9)" },
-    to: { opacity: 1, transform: "scale(1)" },
-    config: { tension: 220, friction: 12 },
+  },
+  {
+    name: 'Clara Inés Mejía Monsalve',
+    image: 'images/Clara.jpg',
+    specialization: 'Especialista en Derecho Mercantil',
+    activities:
+      'La Abg. Clara Mejía es experta en asesoría legal corporativa y derecho mercantil, ' +
+      'con amplia experiencia en contratos comerciales y resolución de conflictos empresariales. ' +
+      'Brinda soluciones efectivas para el éxito de tu negocio.',
+    linkedin: 'https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/',
+
+  },
+
+];
+
+const MemberCard = ({ member, index }) => {
+  const theme = useTheme();
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
   });
 
-  const settings = {
-    arrows: true,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
+  const springProps = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    delay: index * 200,
+    config: { tension: 280, friction: 60 },
+  });
+
+  const handleLinkedIn = (url) => {
+    window.open(url, '_blank');
   };
 
   return (
-    <div id ="Nuestro Equipo" style={{ maxWidth: "800px", margin: "0 auto" }}>
-      <Slider {...settings}>
-        {teamMembers.map((member) => (
-          <animated.div style={springProps} key={member.name}>
-            <Card sx={{ display: "flex", boxShadow: 3 }}>
-              <CardMedia
-                component="img"
-                sx={{ width: 200, height: 200, objectFit: "cover" }}
-                image={member.image}
-                alt={`Foto de ${member.name}`}
-              />
-              <CardContent sx={{ flex: 1, textAlign: "left" }}>
-                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                  {member.name}
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  color="textSecondary"
-                  sx={{ mb: 1 }}
-                >
-                  {member.specialization}
-                </Typography>
-                <Typography variant="body2">{member.activities}</Typography>
-              </CardContent>
-            </Card>
-          </animated.div>
-        ))}
-      </Slider>
-    </div>
+    <Grid item xs={12} md={6} ref={ref}>
+      <animated.div style={springProps}>
+        <Card
+          sx={{
+            height: 700,
+            display: 'flex',
+            flexDirection: 'column',
+            transition: 'transform 0.3s ease-in-out',
+            overflow: 'hidden',
+            '&:hover': {
+              transform: 'translateY(-8px)',
+              boxShadow: theme.shadows[8],
+            },
+            width: '100%',
+            maxWidth: 500,
+            mx: 'auto',
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100%',
+              height: 380,
+              overflow: 'hidden',
+              backgroundColor: theme.palette.grey[100],
+            }}
+          >
+            <CardMedia
+              component="img"
+              sx={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transition: 'transform 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                },
+              }}
+              image={member.image}
+              alt={`Foto de ${member.name}`}
+            />
+          </Box>
+          <CardContent 
+            sx={{ 
+              flex: 1,
+              p: 3,
+              display: 'flex',
+              flexDirection: 'column',
+              height: 320,
+            }}
+          >
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between',
+              mb: 1
+            }}>
+              <Typography
+                variant="h5"
+                component="h3"
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.primary.main,
+                }}
+              >
+                {member.name}
+              </Typography>
+              <IconButton
+                onClick={() => handleLinkedIn(member.linkedin)}
+                sx={{
+                  color: theme.palette.primary.main,
+                  '&:hover': { 
+                    backgroundColor: 'rgba(26, 35, 126, 0.08)',
+                    transform: 'scale(1.1)',
+                  },
+                  transition: 'transform 0.2s ease-in-out',
+                }}
+                title="Ver perfil profesional en LinkedIn"
+                size="small"
+              >
+                <LinkedIn />
+              </IconButton>
+            </Box>
+            <Typography
+              variant="subtitle1"
+              sx={{ 
+                mb: 2, 
+                color: theme.palette.secondary.main, 
+                fontWeight: 600,
+                minHeight: '48px'
+              }}
+            >
+              {member.specialization}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ 
+                lineHeight: 1.6,
+                mb: 2,
+                flex: 1
+              }}
+            >
+              {member.activities}
+            </Typography>
+          </CardContent>
+        </Card>
+      </animated.div>
+    </Grid>
   );
 };
 
-export default TeamCarousel;
+const Members = () => {
+  const theme = useTheme();
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const headerSpring = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    config: { tension: 280, friction: 60 },
+  });
+
+  return (
+    <Box
+      id="team"
+      sx={{
+        py: { xs: 8, md: 12 },
+        mt: { xs: 4, md: 6 },
+        backgroundColor: (theme) => theme.palette.background.paper,
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box ref={ref} sx={{ mb: 8, textAlign: 'center' }}>
+          <animated.div style={headerSpring}>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                fontWeight: 700,
+                color: theme.palette.burgundy[700],
+              }}
+            >
+              Nuestro Equipo
+            </Typography>
+            <Typography
+              variant="h5"
+              color="text.secondary"
+              sx={{ mb: 6, maxWidth: '800px', mx: 'auto' }}
+            >
+              Profesionales comprometidos con la excelencia y el servicio al cliente
+            </Typography>
+          </animated.div>
+        </Box>
+        <Grid 
+          container 
+          spacing={4} 
+          alignItems="stretch"
+          sx={{
+            justifyContent: 'center',
+            '& .MuiGrid-item': {
+              display: 'flex',
+              flexDirection: 'column',
+            },
+          }}
+        >
+          {teamMembers.map((member, index) => (
+            <MemberCard key={member.name} member={member} index={index} />
+          ))}
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+export default Members;
