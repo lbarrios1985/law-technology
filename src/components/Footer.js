@@ -3,18 +3,26 @@ import { Box, Container, Grid, Typography, IconButton, useTheme, Link } from '@m
 import { Instagram, Email } from '@mui/icons-material';
 
 const Footer = () => {
+  const scrollToSection = (sectionId) => {
+    const section = document.querySelector(sectionId);
+    if (section) {
+      const yOffset = -80;
+      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
   const theme = useTheme();
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { 
       icon: <Instagram />, 
-      url: 'https://www.instagram.com/consultoriojuridico_cm',
+      url: process.env.REACT_APP_INSTAGRAM_URL,
       label: 'Instagram'
     },
     { 
       icon: <Email />, 
-      url: `mailto:consultoriojuridicocm2@gmail.com`,
+      url: `mailto:${process.env.REACT_APP_CONTACT_EMAIL}`,
       label: 'Email'
     },
   ];
@@ -23,6 +31,7 @@ const Footer = () => {
     { text: 'Quiénes Somos', href: '#about' },
     { text: 'Servicios', href: '#services' },
     { text: 'Equipo', href: '#team' },
+    { text: 'Casos de Éxito', href: '#success-cases' },
     { text: 'Contacto', href: '#contact' },
   ];
 
@@ -83,7 +92,8 @@ const Footer = () => {
               {footerLinks.map((link) => (
                 <Grid item xs={6} key={link.text}>
                   <Link
-                    href={link.href}
+                    component="button"
+                    onClick={() => scrollToSection(link.href)}
                     sx={{
                       color: 'white',
                       opacity: 0.8,

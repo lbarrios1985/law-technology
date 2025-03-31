@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Container, Typography, Grid, useTheme } from '@mui/material';
+import { Box, Container, Typography, useTheme } from '@mui/material';
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
+import BrandCarousel from './BrandCarousel';
 
 const SuccessCases = () => {
   const theme = useTheme();
@@ -46,9 +47,7 @@ const SuccessCases = () => {
             </Typography>
           </animated.div>
         </Box>
-        <Grid container spacing={4}>
-          {/* Add logo grid items here */}
-        </Grid>
+        <BrandCarousel />
       </Container>
     </Box>
   );

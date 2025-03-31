@@ -11,6 +11,7 @@ import {
 import { useInView } from 'react-intersection-observer';
 import { useSpring, animated } from 'react-spring';
 import { Gavel, Balance, Security } from '@mui/icons-material';
+import BrandCarousel from './BrandCarousel';
 
 const successCases = [
   {
@@ -48,6 +49,7 @@ const SuccessCase = () => {
 
   return (
     <Box
+      id="success-cases"
       sx={{
         py: { xs: 8, md: 12 },
         mt: { xs: 4, md: 6 },
@@ -142,6 +144,9 @@ const SuccessCase = () => {
             </Grid>
           ))}
         </Grid>
+        <Box sx={{ mt: 8 }}>
+          <BrandCarousel />
+        </Box>
       </Container>
     </Box>
   );

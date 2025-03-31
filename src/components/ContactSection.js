@@ -26,7 +26,7 @@ import { useSpring, animated } from 'react-spring';
 import emailjs from '@emailjs/browser';
 
 // Initialize EmailJS with your public key
-emailjs.init('qexpwgGXo_jGJod2-');
+emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
 
 const ContactSection = () => {
   const theme = useTheme();
@@ -116,9 +116,9 @@ const ContactSection = () => {
           user_email: formData.user_email,
           user_phone: formData.user_phone,
           message: formData.message,
-          email: 'consultoriojuridicocm2@gmail.com'
+          email: process.env.REACT_APP_CONTACT_EMAIL
         },
-        'qexpwgGXo_jGJod2-' // Public Key
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       );
 
       if (result.text === 'OK') {
@@ -166,8 +166,8 @@ const ContactSection = () => {
     {
       icon: <Email />,
       title: 'Email',
-      content: 'consultoriojuridicocm2@gmail.com',
-      action: () => window.open('mailto:consultoriojuridicocm2@gmail.com'),
+      content: process.env.REACT_APP_CONTACT_EMAIL,
+      action: () => window.open(`mailto:${process.env.REACT_APP_CONTACT_EMAIL}`),
     },
     {
       icon: <LocationOn />,

@@ -71,6 +71,7 @@ const Header = () => {
     { text: 'Quiénes Somos', icon: <BusinessIcon />, id: 'about' },
     { text: 'Nuestro Equipo', icon: <GroupIcon />, id: 'team' },
     { text: 'Servicios', icon: <AssignmentIcon />, id: 'services' },
+    { text: 'Casos de Éxito', icon: <AssignmentIcon />, id: 'success-cases' },
     { text: 'Contacto', icon: <ContactMailIcon />, id: 'contact' },
   ];
 
