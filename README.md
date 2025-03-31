@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Law Technology Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio web oficial de Law Technology, un consultorio jurídico especializado en derecho tecnológico y propiedad intelectual.
 
-## Available Scripts
+## Configuración Inicial
 
-In the project directory, you can run:
+1. Clona el repositorio:
+```bash
+git clone https://github.com/lbarrios1985/law-technology.git
+cd law-technology
+```
 
-### `npm start`
+2. Instala las dependencias:
+```bash
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Configura las variables de entorno:
+   - Copia el archivo `.env.example` a `.env`
+   - Completa las variables con los valores correspondientes:
+```env
+# EmailJS Configuration
+REACT_APP_EMAILJS_PUBLIC_KEY=tu_clave_publica_de_emailjs
+REACT_APP_EMAILJS_SERVICE_ID=tu_service_id_de_emailjs
+REACT_APP_EMAILJS_TEMPLATE_ID=tu_template_id_de_emailjs
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Contact Information
+REACT_APP_CONTACT_EMAIL=tu_email_de_contacto
+REACT_APP_INSTAGRAM_URL=tu_url_de_instagram
+```
 
-### `npm test`
+## Desarrollo Local
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Inicia el servidor de desarrollo:
+```bash
+npm start
+```
 
-### `npm run build`
+2. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Proceso de Despliegue
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Cuando realices cambios y quieras desplegarlos al sitio web, sigue estos pasos:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Asegúrate de que todos tus cambios estén guardados y funcionando localmente.
 
-### `npm run eject`
+2. Sube los cambios a GitHub:
+```bash
+# Agrega los cambios
+git add .
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Crea un commit con un mensaje descriptivo
+git commit -m "descripción de los cambios"
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Sube los cambios a GitHub
+git push origin master
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Despliega a GitHub Pages:
+```bash
+# Este comando construirá el proyecto y lo desplegará
+npm run deploy
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Verifica los cambios:
+   - Espera unos minutos para que GitHub Pages procese los cambios
+   - Visita [https://lawtechnologycj.com](https://lawtechnologycj.com) para verificar que todo funcione correctamente
 
-## Learn More
+## Notas Importantes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Variables de Entorno**: Nunca subas el archivo `.env` al repositorio, ya que contiene información sensible.
+- **Imágenes**: Coloca las imágenes nuevas en la carpeta `public/images/`.
+- **Componentes**: Los componentes React se encuentran en `src/components/`.
+- **Estilos**: Los estilos globales están en `src/styles/`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Soporte
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Si encuentras algún problema o necesitas ayuda, puedes:
+1. Abrir un issue en el repositorio de GitHub
+2. Contactar al equipo de desarrollo
