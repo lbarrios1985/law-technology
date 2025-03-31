@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.860ad208.css",
+    "main.js": "/static/js/main.b8f0a611.js",
+    "static/js/453.43b34da3.chunk.js": "/static/js/453.43b34da3.chunk.js",
+    "static/media/Law-Technology.png": "/static/media/Law-Technology.de3d6301468d65678c14.png",
+    "index.html": "/index.html",
+    "main.860ad208.css.map": "/static/css/main.860ad208.css.map",
+    "main.b8f0a611.js.map": "/static/js/main.b8f0a611.js.map",
+    "453.43b34da3.chunk.js.map": "/static/js/453.43b34da3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.860ad208.css",
+    "static/js/main.b8f0a611.js"
+  ]
+}
