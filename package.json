@@ -2,7 +2,7 @@
   "name": "law-technology",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://law-technology.com",
+  "homepage": "https://lawtechnologycj.com",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@emotion/react": "^11.13.3",

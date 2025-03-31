@@ -26,7 +26,7 @@ import { useSpring, animated } from 'react-spring';
 import emailjs from '@emailjs/browser';
 
 // Initialize EmailJS with your public key
-emailjs.init('t2cDxvkRmfIBVWpii');
+emailjs.init('qexpwgGXo_jGJod2-');
 
 const ContactSection = () => {
   const theme = useTheme();
@@ -108,8 +108,8 @@ const ContactSection = () => {
 
     try {
       const result = await emailjs.send(
-        'service_gi90oel',
-        'template_ymgjl7l',
+        'service_ed1io0d',
+        'template_brnmxar',
         {
           to_name: 'Law Technology',
           user_name: formData.user_name,
@@ -118,7 +118,7 @@ const ContactSection = () => {
           message: formData.message,
           email: 'consultoriojuridicocm2@gmail.com'
         },
-        't2cDxvkRmfIBVWpii' // Public Key
+        'qexpwgGXo_jGJod2-' // Public Key
       );
 
       if (result.text === 'OK') {
