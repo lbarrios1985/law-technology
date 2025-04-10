@@ -1,12 +1,10 @@
-import React from 'react';
-import { Fab, useTheme, Tooltip, Zoom } from '@mui/material';
-import { WhatsApp } from '@mui/icons-material';
+import React from "react";
+import { Fab, Tooltip, Zoom } from "@mui/material";
+import { WhatsApp } from "@mui/icons-material";
 
 const WhatsAppButton = () => {
-  const theme = useTheme();
-
   const handleClick = () => {
-    window.open('https://wa.me/584247015021', '_blank');
+    window.open("https://wa.me/584247015021", "_blank");
   };
 
   return (
@@ -20,12 +18,12 @@ const WhatsAppButton = () => {
         aria-label="whatsapp"
         onClick={handleClick}
         sx={{
-          position: 'fixed',
+          position: "fixed",
           bottom: 24,
           right: 24,
-          backgroundColor: '#25D366', // WhatsApp green
-          '&:hover': {
-            backgroundColor: '#128C7E', // Darker WhatsApp green
+          backgroundColor: "#25D366", // WhatsApp green
+          "&:hover": {
+            backgroundColor: "#128C7E", // Darker WhatsApp green
           },
           zIndex: 1000,
         }}

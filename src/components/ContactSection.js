@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Container,
@@ -11,37 +11,35 @@ import {
   useTheme,
   Snackbar,
   Alert,
-  CircularProgress,
-} from '@mui/material';
+} from "@mui/material";
 import {
   WhatsApp,
   Phone,
   LocationOn,
   AccessTime,
   Email,
-} from '@mui/icons-material';
-import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from 'react-spring';
+} from "@mui/icons-material";
+import { useInView } from "react-intersection-observer";
+import { useSpring, animated } from "react-spring";
 
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 
 // Initialize EmailJS with your public key
 emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
 
 const ContactSection = () => {
   const theme = useTheme();
-  const form = useRef();
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    severity: 'success',
+    message: "",
+    severity: "success",
   });
   const [formData, setFormData] = useState({
-    user_name: '',
-    user_email: '',
-    user_phone: '',
-    message: '',
+    user_name: "",
+    user_email: "",
+    user_phone: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -53,29 +51,36 @@ const ContactSection = () => {
 
   const headerSpring = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    transform: inView ? "translateY(0)" : "translateY(50px)",
     config: { tension: 280, friction: 60 },
   });
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.user_name.trim()) {
-      newErrors.user_name = 'El nombre es requerido';
+      newErrors.user_name = "El nombre es requerido";
     }
 
     if (!formData.user_email.trim()) {
-      newErrors.user_email = 'El email es requerido';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.user_email)) {
-      newErrors.user_email = 'Email inválido';
+      newErrors.user_email = "El email es requerido";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.user_email)
+    ) {
+      newErrors.user_email = "Email inválido";
     }
 
-    if (formData.user_phone && !/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/i.test(formData.user_phone)) {
-      newErrors.user_phone = 'Teléfono inválido';
+    if (
+      formData.user_phone &&
+      !/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/i.test(
+        formData.user_phone
+      )
+    ) {
+      newErrors.user_phone = "Teléfono inválido";
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'El mensaje es requerido';
+      newErrors.message = "El mensaje es requerido";
     }
 
     setErrors(newErrors);
@@ -92,54 +97,55 @@ const ContactSection = () => {
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: '',
+        [name]: "",
       });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setLoading(true);
 
     try {
       const result = await emailjs.send(
-        'service_ed1io0d',
-        'template_brnmxar',
+        "service_ed1io0d",
+        "template_brnmxar",
         {
-          to_name: 'Law Technology',
+          to_name: "Law Technology",
           user_name: formData.user_name,
           user_email: formData.user_email,
           user_phone: formData.user_phone,
           message: formData.message,
-          email: process.env.REACT_APP_CONTACT_EMAIL
+          email: process.env.REACT_APP_CONTACT_EMAIL,
         },
         process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       );
 
-      if (result.text === 'OK') {
+      if (result.text === "OK") {
         setSnackbar({
           open: true,
-          message: '¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.',
-          severity: 'success',
+          message:
+            "¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.",
+          severity: "success",
         });
         setFormData({
-          user_name: '',
-          user_email: '',
-          user_phone: '',
-          message: '',
+          user_name: "",
+          user_email: "",
+          user_phone: "",
+          message: "",
         });
       }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error("Error sending email:", error);
       setSnackbar({
         open: true,
-        message: 'Error al enviar el mensaje. Por favor, intenta nuevamente.',
-        severity: 'error',
+        message: "Error al enviar el mensaje. Por favor, intenta nuevamente.",
+        severity: "error",
       });
     } finally {
       setLoading(false);
@@ -147,38 +153,40 @@ const ContactSection = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/584247015021', '_blank');
+    window.open("https://wa.me/584247015021", "_blank");
   };
 
   const contactInfo = [
     {
       icon: <Phone />,
-      title: 'Teléfono',
-      content: '+58 424-701-5021',
-      action: () => window.open('tel:+584247015021'),
+      title: "Teléfono",
+      content: "+58 424-7070105",
+      action: () => window.open("tel:+584247015021"),
     },
     {
       icon: <WhatsApp />,
-      title: 'WhatsApp',
-      content: '+58 424-701-5021',
+      title: "WhatsApp",
+      content: "+58 424-7015021",
       action: openWhatsApp,
     },
     {
       icon: <Email />,
-      title: 'Email',
+      title: "Email",
       content: process.env.REACT_APP_CONTACT_EMAIL,
-      action: () => window.open(`mailto:${process.env.REACT_APP_CONTACT_EMAIL}`),
+      action: () =>
+        window.open(`mailto:${process.env.REACT_APP_CONTACT_EMAIL}`),
     },
     {
       icon: <LocationOn />,
-      title: 'Dirección',
-      content: 'Av 3 entre calle 26 y 27 CC Peckas, 3er nivel local 22',
-      action: () => window.open('https://maps.app.goo.gl/7m7NHXLx6UgAp2PS7', '_blank'),
+      title: "Dirección",
+      content: "Av 3 entre calle 26 y 27 CC Peckas, 3er nivel local 22",
+      action: () =>
+        window.open("https://maps.app.goo.gl/7m7NHXLx6UgAp2PS7", "_blank"),
     },
     {
       icon: <AccessTime />,
-      title: 'Horario',
-      content: 'Lunes a Viernes: 9:00 AM - 5:00 PM',
+      title: "Horario",
+      content: "Lunes a Viernes: 9:00 AM - 5:00 PM",
     },
   ];
 
@@ -192,7 +200,7 @@ const ContactSection = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Box ref={ref} sx={{ mb: 8, textAlign: 'center' }}>
+        <Box ref={ref} sx={{ mb: 8, textAlign: "center" }}>
           <animated.div style={headerSpring}>
             <Typography
               variant="h2"
@@ -207,7 +215,7 @@ const ContactSection = () => {
             <Typography
               variant="h5"
               color="text.secondary"
-              sx={{ mb: 6, maxWidth: '800px', mx: 'auto' }}
+              sx={{ mb: 6, maxWidth: "800px", mx: "auto" }}
             >
               Estamos aquí para ayudarte. ¡Contáctanos hoy mismo!
             </Typography>
@@ -219,9 +227,9 @@ const ContactSection = () => {
             <Card
               sx={{
                 p: 4,
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
@@ -290,9 +298,9 @@ const ContactSection = () => {
                       disabled={loading}
                       sx={{
                         mt: 2,
-                        position: 'relative',
+                        position: "relative",
                         backgroundColor: theme.palette.primary.main,
-                        '&:hover': {
+                        "&:hover": {
                           backgroundColor: theme.palette.primary.dark,
                         },
                       }}
@@ -309,7 +317,7 @@ const ContactSection = () => {
             <Card
               sx={{
                 p: 4,
-                height: '100%',
+                height: "100%",
                 backgroundColor: theme.palette.background.default,
               }}
             >
@@ -321,13 +329,13 @@ const ContactSection = () => {
                   <Grid item xs={12} key={index}>
                     <Box
                       sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        cursor: info.action ? 'pointer' : 'default',
-                        '&:hover': info.action
+                        display: "flex",
+                        alignItems: "center",
+                        cursor: info.action ? "pointer" : "default",
+                        "&:hover": info.action
                           ? {
                               color: theme.palette.primary.main,
-                              '& .MuiSvgIcon-root': {
+                              "& .MuiSvgIcon-root": {
                                 color: theme.palette.primary.main,
                               },
                             }
@@ -338,14 +346,17 @@ const ContactSection = () => {
                       <IconButton
                         sx={{
                           mr: 2,
-                          backgroundColor: 'rgba(26, 35, 126, 0.08)',
+                          backgroundColor: "rgba(26, 35, 126, 0.08)",
                           color: theme.palette.primary.main,
                         }}
                       >
                         {info.icon}
                       </IconButton>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{ fontWeight: 600 }}
+                        >
                           {info.title}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
@@ -364,12 +375,12 @@ const ContactSection = () => {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={() => setSnackbar({ ...snackbar, open: false })}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
           onClose={() => setSnackbar({ ...snackbar, open: false })}
           severity={snackbar.severity}
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           {snackbar.message}
         </Alert>

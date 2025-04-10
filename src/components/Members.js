@@ -1,34 +1,41 @@
-import React from 'react';
-import { Box, Container, Typography, Grid, Card, CardContent, CardMedia, IconButton, useTheme } from '@mui/material';
-import { LinkedIn } from '@mui/icons-material';
-import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from '@react-spring/web';
+import React from "react";
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  useTheme,
+} from "@mui/material";
+import { LinkedIn } from "@mui/icons-material";
+import { useInView } from "react-intersection-observer";
+import { useSpring, animated } from "@react-spring/web";
 
 const teamMembers = [
   {
-    name: 'Hayglee Calderas',
-    image: 'images/Hayggle.jpg',
-    specialization: 'Especialista en Propiedad Intelectual',
+    name: "Hayglee Calderas",
+    image: "images/Hayglee.webp",
+    specialization: "Especialista en Propiedad Intelectual e Inmobiliario",
     activities:
-      'La Abg. Hayglee Calderas ofrece servicios especializados en Propiedad Intelectual, ' +
-      'respaldados por su experiencia como Coordinadora Estadal del Servicio Autónomo ' +
-      'de la Propiedad Intelectual (SAPI) en Mérida. Brinda seguridad y protección ' +
-      'a tus creaciones intelectuales.',
-    linkedin: 'https://www.linkedin.com/in/hayglee-calderas/',
-
+      "La Abg. Hayglee Calderas ofrece servicios especializados en Propiedad Intelectual, " +
+      "respaldados por su experiencia como Coordinadora Estadal del Servicio Autónomo " +
+      "de la Propiedad Intelectual (SAPI) en Mérida. Brinda seguridad y protección " +
+      "a tus creaciones intelectuales. Igualmente, es agremiada de la CIM y certificada por la CIV, ejerciendo su amplio conocimiento en el ramo inmobiliario, tu inmueble siempre será su prioridad.",
+    linkedin: "https://www.linkedin.com/in/hayglee-calderas/",
   },
   {
-    name: 'Clara Inés Mejía Monsalve',
-    image: 'images/Clara.jpg',
-    specialization: 'Especialista en Derecho Mercantil',
+    name: "Clara Inés Mejía Monsalve",
+    image: "images/Clara.webp",
+    specialization: "Especialista en Derecho Civil y Propiedad Intelectual",
     activities:
-      'La Abg. Clara Mejía es experta en asesoría legal corporativa y derecho mercantil, ' +
-      'con amplia experiencia en contratos comerciales y resolución de conflictos empresariales. ' +
-      'Brinda soluciones efectivas para el éxito de tu negocio.',
-    linkedin: 'https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/',
-
+      "La Abg. Clara Mejía es experta en asesoría legal integral, redacción de documentos precisos y representación efectiva para defender sus derechos e intereses en cada situación, " +
+      "además con gran experiencia en Propiedad Intelectual brindando las herramientas necesarias para asegurar la exclusividad de sus activos intangibles y maximizar su potencial comercial.",
+    linkedin:
+      "https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/",
   },
-
 ];
 
 const MemberCard = ({ member, index }) => {
@@ -40,13 +47,13 @@ const MemberCard = ({ member, index }) => {
 
   const springProps = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    transform: inView ? "translateY(0)" : "translateY(50px)",
     delay: index * 200,
     config: { tension: 280, friction: 60 },
   });
 
   const handleLinkedIn = (url) => {
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   return (
@@ -54,59 +61,61 @@ const MemberCard = ({ member, index }) => {
       <animated.div style={springProps}>
         <Card
           sx={{
-            height: 700,
-            display: 'flex',
-            flexDirection: 'column',
-            transition: 'transform 0.3s ease-in-out',
-            overflow: 'hidden',
-            '&:hover': {
-              transform: 'translateY(-8px)',
+            display: "flex",
+            flexDirection: "column",
+            transition: "transform 0.3s ease-in-out",
+            overflow: "hidden",
+            "&:hover": {
+              transform: "translateY(-8px)",
               boxShadow: theme.shadows[8],
             },
-            width: '100%',
+            width: "100%",
             maxWidth: 500,
-            mx: 'auto',
+            mx: "auto",
+            minHeight: { xs: "auto", md: "663px" }, // Set minimum height for desktop
           }}
         >
           <Box
             sx={{
-              position: 'relative',
-              width: '100%',
-              height: 380,
-              overflow: 'hidden',
+              position: "relative",
+              width: "100%",
+              height: "auto",
+              overflow: "hidden",
               backgroundColor: theme.palette.grey[100],
             }}
           >
             <CardMedia
               component="img"
               sx={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                transition: 'transform 0.3s ease-in-out',
-                '&:hover': {
-                  transform: 'scale(1.05)',
+                width: "100%",
+                height: "auto",
+                display: "block",
+                objectFit: "contain",
+                transition: "transform 0.3s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.05)",
                 },
               }}
               image={member.image}
               alt={`Foto de ${member.name}`}
             />
           </Box>
-          <CardContent 
-            sx={{ 
+          <CardContent
+            sx={{
               flex: 1,
               p: 3,
-              display: 'flex',
-              flexDirection: 'column',
-              height: 320,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Box sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'space-between',
-              mb: 1
-            }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                mb: 1,
+              }}
+            >
               <Typography
                 variant="h5"
                 component="h3"
@@ -121,11 +130,11 @@ const MemberCard = ({ member, index }) => {
                 onClick={() => handleLinkedIn(member.linkedin)}
                 sx={{
                   color: theme.palette.primary.main,
-                  '&:hover': { 
-                    backgroundColor: 'rgba(26, 35, 126, 0.08)',
-                    transform: 'scale(1.1)',
+                  "&:hover": {
+                    backgroundColor: "rgba(26, 35, 126, 0.08)",
+                    transform: "scale(1.1)",
                   },
-                  transition: 'transform 0.2s ease-in-out',
+                  transition: "transform 0.2s ease-in-out",
                 }}
                 title="Ver perfil profesional en LinkedIn"
                 size="small"
@@ -135,11 +144,11 @@ const MemberCard = ({ member, index }) => {
             </Box>
             <Typography
               variant="subtitle1"
-              sx={{ 
-                mb: 2, 
-                color: theme.palette.secondary.main, 
+              sx={{
+                mb: 2,
+                color: theme.palette.secondary.main,
                 fontWeight: 600,
-                minHeight: '48px'
+                minHeight: "48px",
               }}
             >
               {member.specialization}
@@ -147,10 +156,10 @@ const MemberCard = ({ member, index }) => {
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ 
+              sx={{
                 lineHeight: 1.6,
                 mb: 2,
-                flex: 1
+                flex: 1,
               }}
             >
               {member.activities}
@@ -171,7 +180,7 @@ const Members = () => {
 
   const headerSpring = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    transform: inView ? "translateY(0)" : "translateY(50px)",
     config: { tension: 280, friction: 60 },
   });
 
@@ -185,7 +194,7 @@ const Members = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Box ref={ref} sx={{ mb: 8, textAlign: 'center' }}>
+        <Box ref={ref} sx={{ mb: 8, textAlign: "center" }}>
           <animated.div style={headerSpring}>
             <Typography
               variant="h2"
@@ -200,21 +209,22 @@ const Members = () => {
             <Typography
               variant="h5"
               color="text.secondary"
-              sx={{ mb: 6, maxWidth: '800px', mx: 'auto' }}
+              sx={{ mb: 6, maxWidth: "800px", mx: "auto" }}
             >
-              Profesionales comprometidos con la excelencia y el servicio al cliente
+              Profesionales comprometidos con la excelencia y el servicio al
+              cliente
             </Typography>
           </animated.div>
         </Box>
-        <Grid 
-          container 
-          spacing={4} 
+        <Grid
+          container
+          spacing={4}
           alignItems="stretch"
           sx={{
-            justifyContent: 'center',
-            '& .MuiGrid-item': {
-              display: 'flex',
-              flexDirection: 'column',
+            justifyContent: "center",
+            "& .MuiGrid-item": {
+              display: "flex",
+              flexDirection: "column",
             },
           }}
         >
