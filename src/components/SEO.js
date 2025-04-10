@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-  title = 'Law Technology | Asesoría Legal en Propiedad Intelectual - Mérida',
+  title = 'Asesoría Legal en Propiedad Intelectual Mérida | Law Technology',
   description = 'Expertos en protección de marcas y propiedad intelectual en Mérida. Registro de marcas, patentes y derechos de autor con el SAPI. Consultoría legal especializada.',
   keywords = 'registro de marcas mérida, propiedad intelectual venezuela, patentes sapi, derecho civil mérida, abogados propiedad intelectual, marcas registradas venezuela',
   image = '/Law-Technology.png',
