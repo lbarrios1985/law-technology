@@ -1,0 +1,34 @@
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+
+# Cache-Control Headers
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|ico)$">
+Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+<FilesMatch "\.(css|js)$">
+Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Compress text files
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/x-javascript text/javascript
+</IfModule>
+
+# Set security headers
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Enable Keep-Alive
+Header set Connection keep-alive
+
+# Set character encoding
+AddDefaultCharset UTF-8
+
+# Prevent directory listings
+Options -Indexes
+
+# Custom error pages
+ErrorDocument 404 /404.html

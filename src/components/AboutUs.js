@@ -1,29 +1,36 @@
-import React from 'react';
-import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from 'react-spring';
-import { Typography, Container, Box, Grid, Card, useTheme } from '@mui/material';
-import { Balance, Gavel, Visibility } from '@mui/icons-material';
+import React from "react";
+import { useInView } from "react-intersection-observer";
+import { useSpring, animated } from "react-spring";
+import {
+  Typography,
+  Container,
+  Box,
+  Grid,
+  Card,
+  useTheme,
+} from "@mui/material";
+import { Balance, Gavel, Visibility } from "@mui/icons-material";
 
 const sections = [
   {
-    id: 'about',
-    title: 'Quiénes Somos',
+    id: "about",
+    title: "Quiénes Somos",
     content:
-      'En Law Technology, somos un equipo de abogados especializados en ofrecer soluciones legales efectivas. Desde 2023, brindamos asesoría de calidad en diversas áreas del derecho, como propiedad intelectual, civil, mercantil, penal y laboral, además de servicios complementarios como marketing marcario e inmobiliario.',
+      "En Law Technology, somos un equipo de abogados especializados en ofrecer soluciones legales efectivas. Desde 2023, brindamos asesoría de calidad en diversas áreas del derecho, como propiedad intelectual, civil, mercantil, penal y laboral, además de servicios complementarios como marketing marcario e inmobiliario.",
     icon: <Gavel fontSize="large" />,
   },
   {
-    id: 'mission',
-    title: 'Misión',
+    id: "mission",
+    title: "Misión",
     content:
-      'Nuestro propósito es ofrecer asesoría legal integral y personalizada, enfocada en proteger los derechos y necesidades de nuestros clientes. Nos esforzamos por ser aliados estratégicos, proporcionando soluciones prácticas y seguras.',
+      "Nuestro propósito es ofrecer asesoría legal integral y personalizada, enfocada en proteger los derechos y necesidades de nuestros clientes. Nos esforzamos por ser aliados estratégicos, proporcionando soluciones prácticas y seguras.",
     icon: <Balance fontSize="large" />,
   },
   {
-    id: 'vision',
-    title: 'Visión',
+    id: "vision",
+    title: "Visión",
     content:
-      'Aspiramos a ser el consultorio jurídico de referencia, reconocido por nuestra ética, profesionalismo y la confianza de nuestros clientes, apoyando su éxito a través de un enfoque legal innovador y eficiente.',
+      "Aspiramos a ser el consultorio jurídico de referencia, reconocido por nuestra ética, profesionalismo y la confianza de nuestros clientes, apoyando su éxito a través de un enfoque legal innovador y eficiente.",
     icon: <Visibility fontSize="large" />,
   },
 ];
@@ -36,7 +43,7 @@ function Section({ id, title, content, icon, index }) {
 
   const springProps = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    transform: inView ? "translateY(0)" : "translateY(50px)",
     delay: index * 200,
     config: { tension: 280, friction: 60 },
   });
@@ -49,21 +56,21 @@ function Section({ id, title, content, icon, index }) {
         <Card
           id={id}
           sx={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
             padding: 4,
-            transition: 'transform 0.3s ease-in-out',
-            '&:hover': {
-              transform: 'translateY(-8px)',
+            transition: "transform 0.3s ease-in-out",
+            "&:hover": {
+              transform: "translateY(-8px)",
               boxShadow: theme.shadows[8],
             },
           }}
         >
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               mb: 2,
               color: theme.palette.burgundy[700],
             }}
@@ -106,7 +113,7 @@ const AboutUs = () => {
 
   const headerSpring = useSpring({
     opacity: inView ? 1 : 0,
-    transform: inView ? 'translateY(0)' : 'translateY(50px)',
+    transform: inView ? "translateY(0)" : "translateY(50px)",
     config: { tension: 280, friction: 60 },
   });
 
@@ -115,28 +122,35 @@ const AboutUs = () => {
       sx={{
         py: { xs: 8, md: 12 },
         mt: { xs: 4, md: 6 },
-        backgroundColor: 'background.default',
+        backgroundColor: "background.default",
       }}
     >
       <Container maxWidth="lg">
         <Box ref={ref} sx={{ mb: 8 }}>
           <animated.div style={headerSpring}>
             <Typography
-              variant="h2"
+              variant="h1"
+              component="h1"
               align="center"
               sx={{
                 mb: 2,
                 fontWeight: 700,
                 color: theme.palette.burgundy[700],
+                fontSize: { xs: "2.5rem", md: "3.5rem" },
               }}
             >
               Bienvenido a Law Technology
             </Typography>
             <Typography
-              variant="h5"
+              variant="h2"
+              component="h2"
               align="center"
-              color="text.secondary"
-              sx={{ mb: 6 }}
+              sx={{
+                mb: 2,
+                fontWeight: 600,
+                color: theme.palette.burgundy[500],
+                fontSize: { xs: "1.75rem", md: "2.25rem" },
+              }}
             >
               Soluciones legales innovadoras para el mundo moderno
             </Typography>
@@ -144,11 +158,7 @@ const AboutUs = () => {
         </Box>
         <Grid container spacing={4}>
           {sections.map((section, index) => (
-            <Section
-              key={section.id}
-              {...section}
-              index={index}
-            />
+            <Section key={section.id} {...section} index={index} />
           ))}
         </Grid>
       </Container>

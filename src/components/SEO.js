@@ -2,9 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-  title = 'Law Technology - Consultorio Jurídico',
-  description = 'Somos un equipo de abogados especializados en ofrecer soluciones legales efectivas. Brindamos asesoría en propiedad intelectual, civil, mercantil, penal y laboral.',
-  keywords = 'abogados, derecho, propiedad intelectual, civil, mercantil, penal, laboral, asesoría legal, Mérida, Venezuela',
+  title = 'Law Technology | Asesoría Legal en Propiedad Intelectual - Mérida',
+  description = 'Expertos en protección de marcas y propiedad intelectual en Mérida. Registro de marcas, patentes y derechos de autor con el SAPI. Consultoría legal especializada.',
+  keywords = 'registro de marcas mérida, propiedad intelectual venezuela, patentes sapi, derecho civil mérida, abogados propiedad intelectual, marcas registradas venezuela',
   image = '/Law-Technology.png',
   url = 'https://lawtechnologycj.com',
 }) => {
