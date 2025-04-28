@@ -13,6 +13,16 @@ import {
 import { LinkedIn } from "@mui/icons-material";
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import { EffectCoverflow, Pagination } from "swiper/modules";
+
+import "../styles/styles.css";
 
 const teamMembers = [
   {
@@ -33,6 +43,24 @@ const teamMembers = [
     activities:
       "La Abg. Clara Mejía es experta en asesoría legal integral, redacción de documentos precisos y representación efectiva para defender sus derechos e intereses en cada situación, " +
       "además con gran experiencia en Propiedad Intelectual brindando las herramientas necesarias para asegurar la exclusividad de sus activos intangibles y maximizar su potencial comercial.",
+    linkedin:
+      "https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/",
+  },
+  {
+    name: "Leonardo Chacín",
+    image: "images/Hayglee.webp",
+    specialization: "Especialista en Derecho Penal",
+    activities:
+      "Abogado Penalista, con experiencia en el área de Derecho Penal dónde se busca representar a las personas que han sido acusadas de un delito bajo los principios de igualdad y justicia! " +
+      "Asesorías en materia penal. Defensa privada en las distintas etapas del proceso Querella. Solicitudes y diligencias antes Ministerio Público, Tribunales y organismos del Estado.",
+    linkedin: "https://www.linkedin.com/in/hayglee-calderas/",
+  },
+  {
+    name: "Alexandra Mercado",
+    image: "images/Clara.webp",
+    specialization: "Especialista Mercantil y Contable",
+    activities:
+      "Es tu abogado mercantil con toda la experiencia contable. Dedicada a ofrecer soluciones jurídicas efectivas y personalizadas para tu empresa, compañía o pyme; con un enfoque en proteger los intereses de sus clientes, garantiza un servicio transparente y enfocado en el éxito de cada caso.",
     linkedin:
       "https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/",
   },
@@ -216,7 +244,7 @@ const Members = () => {
             </Typography>
           </animated.div>
         </Box>
-        <Grid
+        {/* <Grid
           container
           spacing={4}
           alignItems="stretch"
@@ -227,11 +255,30 @@ const Members = () => {
               flexDirection: "column",
             },
           }}
+        > */}
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 20,
+            stretch: 1,
+            depth: 50,
+            modifier: 2,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Pagination]}
+          className="mySwiper"
         >
           {teamMembers.map((member, index) => (
-            <MemberCard key={member.name} member={member} index={index} />
+            <SwiperSlide>
+              <MemberCard key={member.name} member={member} index={index} />
+            </SwiperSlide>
           ))}
-        </Grid>
+        </Swiper>
+        {/* </Grid> */}
       </Container>
     </Box>
   );

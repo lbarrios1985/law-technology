@@ -33,6 +33,22 @@ header a {
   justify-content: space-around;
 }
 
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   header ul {
     flex-direction: column;
