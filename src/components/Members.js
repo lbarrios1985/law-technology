@@ -244,18 +244,7 @@ const Members = () => {
             </Typography>
           </animated.div>
         </Box>
-        {/* <Grid
-          container
-          spacing={4}
-          alignItems="stretch"
-          sx={{
-            justifyContent: "center",
-            "& .MuiGrid-item": {
-              display: "flex",
-              flexDirection: "column",
-            },
-          }}
-        > */}
+
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
@@ -278,7 +267,6 @@ const Members = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        {/* </Grid> */}
       </Container>
     </Box>
   );
