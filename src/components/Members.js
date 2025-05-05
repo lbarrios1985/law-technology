@@ -20,7 +20,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import {EffectCoverflow, Pagination, Navigation, Keyboard, Autoplay} from "swiper/modules";
 
 import "../styles/styles.css";
 
@@ -47,13 +47,22 @@ const teamMembers = [
       "https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/",
   },
   {
+    name: "Alexandra Mercado",
+    image: "images/Alexandra.JPG",
+    specialization: "Especialista Mercantil y Contable",
+    activities:
+      "Es tu abogado mercantil con toda la experiencia contable. Dedicada a ofrecer soluciones jurídicas efectivas y personalizadas para tu empresa, compañía o pyme; con un enfoque en proteger los intereses de sus clientes, garantiza un servicio transparente y enfocado en el éxito de cada caso.",
+    // linkedin:
+    //   "https://www.linkedin.com/in/clara-in%C3%A9s-mejia-monsalve-753402288/",
+  },
+  {
     name: "Leonardo Chacín",
     image: "images/Hayglee.webp",
     specialization: "Especialista en Derecho Penal",
     activities:
       "Abogado Penalista, con experiencia en el área de Derecho Penal dónde se busca representar a las personas que han sido acusadas de un delito bajo los principios de igualdad y justicia! " +
       "Asesorías en materia penal. Defensa privada en las distintas etapas del proceso Querella. Solicitudes y diligencias antes Ministerio Público, Tribunales y organismos del Estado.",
-    linkedin: "https://www.linkedin.com/in/hayglee-calderas/",
+    // linkedin: "https://www.linkedin.com/in/hayglee-calderas/",
   },
   {
     name: "Alexandra Mercado",
@@ -154,6 +163,7 @@ const MemberCard = ({ member, index }) => {
               >
                 {member.name}
               </Typography>
+              {member.linkedin && (
               <IconButton
                 onClick={() => handleLinkedIn(member.linkedin)}
                 sx={{
@@ -168,7 +178,8 @@ const MemberCard = ({ member, index }) => {
                 size="small"
               >
                 <LinkedIn />
-              </IconButton>
+               </IconButton>
+               )}
             </Box>
             <Typography
               variant="subtitle1"
@@ -243,27 +254,35 @@ const Members = () => {
               cliente
             </Typography>
           </animated.div>
-        </Box>
-
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
+        </Box>     
+              <Swiper
+         effect={'coverflow'}
+        grabCursor={true}
           centeredSlides={true}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 20,
-            stretch: 1,
-            depth: 50,
-            modifier: 2,
-            slideShadows: true,
+          slidesPerView={"auto"}          
+          coverflowEffect={{     
+          rotate: 50,
+          stretch: 80,
+          depth: 100,
+          modifier: 1,
+          slideShadows: false,
           }}
-          pagination={true}
-          modules={[EffectCoverflow, Pagination]}
-          className="mySwiper"
-        >
-          {teamMembers.map((member, index) => (
-            <SwiperSlide>
-              <MemberCard key={member.name} member={member} index={index} />
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}         
+          navigation={true} 
+          keyboard={true}      
+
+          modules={[EffectCoverflow, Pagination, Navigation, Keyboard, Autoplay]}
+          className="mySwiper"            
+          >
+{teamMembers.map((member, index) => (
+            <SwiperSlide className="mi-diapositiva"> 
+              <MemberCard key={member.name} member={member} index={index} />              
             </SwiperSlide>
           ))}
         </Swiper>

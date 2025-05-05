@@ -49,6 +49,13 @@ header a {
   width: 100%;
 }
 
+
+.mi-diapositiva{
+box-shadow: 20px 0px 50px 10px grey;
+}
+
+
+
 @media (max-width: 768px) {
   header ul {
     flex-direction: column;
