@@ -23,8 +23,10 @@ import {
 import { useSpring, animated } from "react-spring";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -65,6 +67,7 @@ const Header = () => {
     { text: "Quiénes Somos", icon: <BusinessIcon />, id: "about" },
     { text: "Nuestro Equipo", icon: <GroupIcon />, id: "team" },
     { text: "Servicios", icon: <AssignmentIcon />, id: "services" },
+    { text: "Inmobiliaria", icon: <BusinessIcon />, id: "inmobiliaria" },
     { text: "Casos de Éxito", icon: <AssignmentIcon />, id: "success-cases" },
     { text: "Contacto", icon: <ContactMailIcon />, id: "contact" },
   ];
@@ -97,7 +100,7 @@ const Header = () => {
                 src="/Law-Technology.png"
                 alt="Law Technology Logo"
                 style={logoStyles}
-                onClick={() => scrollToSection("home")}
+                onClick={() => navigate("/")}
               />
             </animated.div>
 
