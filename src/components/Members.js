@@ -122,9 +122,9 @@ const MemberCard = ({ member, index }) => {
               component="img"
               sx={{
                 width: "100%",
-                height: "auto",
+                height: 550, // altura fija para todas las imágenes
+                objectFit: "cover", // recorta y ajusta la imagen
                 display: "block",
-                objectFit: "contain",
                 transition: "transform 0.3s ease-in-out",
                 "&:hover": {
                   transform: "scale(1.05)",
