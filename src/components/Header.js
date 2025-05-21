@@ -23,9 +23,18 @@ import {
 import { useSpring, animated } from "react-spring";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+=======
+import { useNavigate, useLocation} from "react-router-dom";
+
+
+
+const Header = () => {
+  const location = useLocation(); 
+>>>>>>> de4a2cc (inmobiliaria)
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
@@ -46,6 +55,10 @@ const Header = () => {
 
   const toggleDrawer = () => setIsOpen(!isOpen);
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> de4a2cc (inmobiliaria)
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -57,6 +70,37 @@ const Header = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  const handleNavLinkClick = (sectionId) => {
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
+
+
+  const handleClickNavLink = (sectionId) => {
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
+    } else {
+      scrollToSection(sectionId);
+    }
+    setIsOpen(false); 
+  };
+
+
+
+  useEffect(() => {
+    if (location.state && location.state.scrollTo) {
+      scrollToSection(location.state.scrollTo);
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
+
+>>>>>>> de4a2cc (inmobiliaria)
   const logoSpring = useSpring({
     from: { opacity: 0, transform: "translateX(-50px)" },
     to: { opacity: 1, transform: "translateX(0)" },
@@ -64,6 +108,7 @@ const Header = () => {
   });
 
   const navigationItems = [
+<<<<<<< HEAD
     { text: "Quiénes Somos", icon: <BusinessIcon />, id: "about" },
     { text: "Nuestro Equipo", icon: <GroupIcon />, id: "team" },
     { text: "Servicios", icon: <AssignmentIcon />, id: "services" },
@@ -72,6 +117,16 @@ const Header = () => {
     { text: "Contacto", icon: <ContactMailIcon />, id: "contact" },
   ];
 
+=======
+    { text: "Quiénes Somos", icon: <BusinessIcon />, path: "about" },
+    { text: "Nuestro Equipo", icon: <GroupIcon />, path: "members" },
+    { text: "Servicios", icon: <AssignmentIcon />, path: "services" },
+    { text: "Inmobiliaria", icon: <BusinessIcon />, path: "inmobiliaria" },
+    { text: "Casos de Éxito", icon: <AssignmentIcon />, path: "success" },
+    { text: "Contacto", icon: <ContactMailIcon />, path: "contact" },
+  ];
+  
+>>>>>>> de4a2cc (inmobiliaria)
   return (
     <>
       <AppBar
@@ -117,8 +172,13 @@ const Header = () => {
               >
                 {navigationItems.map((item) => (
                   <Button
+<<<<<<< HEAD
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
+=======
+                  key={item.path}
+                  onClick={() => handleNavLinkClick(item.path)}
+>>>>>>> de4a2cc (inmobiliaria)
                     sx={{
                       color: theme.palette.primary.main,
                       "&:hover": {
@@ -166,8 +226,13 @@ const Header = () => {
           {navigationItems.map((item) => (
             <ListItem
               button
+<<<<<<< HEAD
               key={item.id}
               onClick={() => scrollToSection(item.id)}
+=======
+              key={item.path}
+              onClick={() => handleNavLinkClick(item.path)}
+>>>>>>> de4a2cc (inmobiliaria)
               sx={{
                 "&:hover": {
                   backgroundColor: "rgba(26, 35, 126, 0.08)",

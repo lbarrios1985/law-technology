@@ -68,6 +68,10 @@ function Section({ id, title, content, icon, index }) {
           }}
         >
           <Box
+<<<<<<< HEAD
+=======
+          id="about"
+>>>>>>> de4a2cc (inmobiliaria)
             sx={{
               display: "flex",
               alignItems: "center",

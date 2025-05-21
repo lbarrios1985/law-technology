@@ -19,7 +19,11 @@ const SuccessCases = () => {
 
   return (
     <Box
+<<<<<<< HEAD
       id="success-cases"
+=======
+      id="success"
+>>>>>>> de4a2cc (inmobiliaria)
       sx={{
         py: { xs: 8, md: 12 },
         backgroundColor: theme.palette.background.paper,
