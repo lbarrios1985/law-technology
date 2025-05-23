@@ -80,8 +80,7 @@ return (
             boxShadow: theme.shadows[1],
             "&:hover": {
               transform: "translateY(-4px)",
-              boxShadow: theme.shadows[4],
-            },
+              boxShadow: theme.shadows[4],},
             width: "100%",
             maxWidth: 450,
             mx: "auto",
@@ -95,8 +94,7 @@ return (
           width: "100%",
           overflow: "hidden",
           }}
-        >
-        
+        >        
         <CardMedia
         component="img"
         sx={{
@@ -257,6 +255,7 @@ const InmobiliariaTerrenos = () => {
 
 
 
+<<<<<<< HEAD
 // const InmobiliariaTerrenos = () => (
 //   <Container style={{ padding: "2rem 0" }}>
 //     <Typography variant="h4" gutterBottom>
@@ -269,4 +268,6 @@ const InmobiliariaTerrenos = () => {
 // );
 >>>>>>> de4a2cc (inmobiliaria)
 
+=======
+>>>>>>> 2474f22 (Locales)
 export default InmobiliariaTerrenos;

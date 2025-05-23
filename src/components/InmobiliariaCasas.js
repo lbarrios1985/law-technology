@@ -29,11 +29,12 @@ import {
 
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
+import { useNavigate } from "react-router-dom";
 
 
 const houseListings = [
   {
-    id: 1,
+    id: "casa-1",
     title: "Casa",
     image: "/images/inmobiliaria/Casa1.jpg", 
     description: "",

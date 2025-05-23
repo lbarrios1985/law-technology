@@ -30,8 +30,6 @@ import {
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
 
-
-
 const apartmentListings = [
   {
     id: 1,

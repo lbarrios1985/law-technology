@@ -22,7 +22,9 @@ import InmobiliariaApartamentos from "./components/InmobiliariaApartamentos";
 import InmobiliariaCasas from "./components/InmobiliariaCasas";
 import InmobiliariaLocales from "./components/InmobiliariaLocales";
 import InmobiliariaTerrenos from "./components/InmobiliariaTerrenos";
+import LocalDetails from "./components/localdetails";
 import NotFound from "./components/NotFound";
+import HouseDetails from "./components/housedetails";
 
 function App() {
   return (
@@ -44,7 +46,7 @@ function App() {
                   <SuccessCase />
                   <ContactSection />
                 </>
-              }
+              } 
             />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/members" element={<Members />} />
@@ -56,10 +58,16 @@ function App() {
             <Route path="/inmobiliaria/casas" element={<InmobiliariaCasas />} />
             <Route path="/inmobiliaria/locales" element={<InmobiliariaLocales />} />
             <Route path="/inmobiliaria/terrenos" element={<InmobiliariaTerrenos />} />
+
+     {/* Nueva ruta para los detalles de la inmobiliaria */}
+     <Route path="/inmobiliaria/locales/:id" element={<LocalDetails />} />
+     <Route path="/inmobiliaria/casas/:id" element={<HouseDetails/>} />
+
+
             {/* Puedes agregar más rutas si necesitas */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
+            <Footer />
           <WhatsAppButton />
         </Router>
       </ThemeProvider>
