@@ -110,10 +110,7 @@ const MemberCard = ({ member, index }) => {
           }}
         >
           <Box
-<<<<<<< HEAD
-=======
-          id="members"
->>>>>>> de4a2cc (inmobiliaria)
+            id="members"
             sx={{
               position: "relative",
               width: "100%",
@@ -226,11 +223,7 @@ const Members = () => {
 
   return (
     <Box
-<<<<<<< HEAD
-      id="team"
-=======
       id="members"
->>>>>>> de4a2cc (inmobiliaria)
       sx={{
         py: { xs: 8, md: 12 },
         mt: { xs: 4, md: 6 },

@@ -1,6 +1,4 @@
 import React from "react";
-import { Typography, Container } from "@mui/material";
-
 import {
   Box,
   Container,
@@ -15,14 +13,14 @@ import {
 
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
-import { useNavigate } from "react-router-dom";
+
 
 
 const houseListings = [
   {
     id: "casa-1",
     title: "Casa",
-    image: "/images/inmobiliaria/Casa1.jpg", 
+    image: "", 
     description: "",
     location: "",
     price: "$",

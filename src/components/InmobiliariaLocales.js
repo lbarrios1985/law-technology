@@ -1,23 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Typography, Container } from "@mui/material";
-
-const InmobiliariaLocales = () => (
-  <Container style={{ padding: "2rem 0" }}>
-    <Typography variant="h4" gutterBottom>
-      Locales
-    </Typography>
-    <Typography variant="body1">
-      Aquí encontrarás información sobre locales disponibles.
-    </Typography>
-  </Container>
-);
-=======
-import { 
-=======
 import {
->>>>>>> 2474f22 (Locales)
   Box,
   Container,
   Typography,
@@ -37,19 +19,35 @@ import { useNavigate } from "react-router-dom";
 const localistings = [
   {
     id: "local-1",
-    title: "",
-    image: "",
-    description: "",
-    location: "",
-    price: "$",
+    title: "Amplio Local Comercial en el Centro",
+    image: "https://via.placeholder.com/400x280?text=Local+Comercial+1", // Placeholder image
+    description: "Excelente local comercial en zona de alto tráfico, ideal para cualquier tipo de negocio. Cuenta con 100m² y dos baños.",
+    location: "Avenida 3, Centro, Mérida",
+    price: "$1,200/mes",
   },
   {
     id: "local-2",
-    title: "",
-    image: "",
-    description: "",
-    location: "",
-    price: "$",
+    title: "Oficina Moderna en Zona Empresarial",
+    image: "https://via.placeholder.com/400x280?text=Local+Comercial+2", // Placeholder image
+    description: "Oficina recién remodelada en edificio corporativo. Perfecta para consultorios, estudios o pequeñas empresas.",
+    location: "Calle 25, Los Sauces, Mérida",
+    price: "$800/mes",
+  },
+  {
+    id: "local-3",
+    title: "Local con Vitrina en Centro Comercial",
+    image: "https://via.placeholder.com/400x280?text=Local+Comercial+3", // Placeholder image
+    description: "Local estratégico dentro de un concurrido centro comercial. Gran vitrina y alto flujo de visitantes.",
+    location: "C.C. Las Américas, Mérida",
+    price: "$1,500/mes",
+  },
+  {
+    id: "local-4",
+    title: "Almacén con Fácil Acceso",
+    image: "https://via.placeholder.com/400x280?text=Local+Comercial+4", // Placeholder image
+    description: "Amplio almacén con portón de carga y descarga, ideal para distribución o depósito. Fácil acceso desde vía principal.",
+    location: "Zona Industrial, Mérida",
+    price: "$950/mes",
   },
 ];
 
@@ -112,11 +110,10 @@ const LocalCard = ({ local, index }) => {
                   transition: "transform 0.3s ease-in-out",
                   "&:hover": {
                     transform: "scale(1.03)",
-                    filter: "blur(2px)",
-                  },
+                  }, // Removed blur as it might not be desired on hover
                 }}
-                image={local.image} 
-                alt={local.title}  
+                image={local.image}
+                alt={local.title}
                 />
              <Typography
               variant="body1"
@@ -221,7 +218,7 @@ const InmobiliariaLocales = () => {
 
   return (
     <Box
-      id="Locales"
+      id="locales" // Changed ID to 'locales' for consistency
       sx={{
         py: { xs: 8, md: 10 },
         mt: { xs: 4, md: 6 },
@@ -240,14 +237,14 @@ const InmobiliariaLocales = () => {
                 color: theme.palette.text.primary,
               }}
             >
-              Propiedades Destacadas
+              Locales Disponibles
             </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
               sx={{ maxWidth: "700px", mx: "auto", lineHeight: 1.6 }}
             >
-              Descubre nuestra exclusiva selección de locales disponibles, diseñados para ofrecer el máximo confort y estilo de vida.
+              Explora nuestra selección de locales comerciales y oficinas en Mérida, perfectos para tu próximo emprendimiento o expansión.
             </Typography>
           </animated.div>
         </Box>
@@ -261,26 +258,4 @@ const InmobiliariaLocales = () => {
   );
 };
 
-<<<<<<< HEAD
-
-
-
-// const InmobiliariaLocales = () => (
-//   <Container style={{ padding: "2rem 0" }}>
-//     <Typography variant="h4" gutterBottom>
-//       Locales
-//     </Typography>
-//     <Typography variant="body1">
-//       Aquí encontrarás información sobre locales disponibles.
-//     </Typography>
-//   </Container>
-// );
->>>>>>> de4a2cc (inmobiliaria)
-
-=======
->>>>>>> 2474f22 (Locales)
 export default InmobiliariaLocales;
-
-
-
-

@@ -1,18 +1,4 @@
-import React from "react";
-<<<<<<< HEAD
-import { Typography, Container } from "@mui/material";
 
-const InmobiliariaTerrenos = () => (
-  <Container style={{ padding: "2rem 0" }}>
-    <Typography variant="h4" gutterBottom>
-      Terrenos
-    </Typography>
-    <Typography variant="body1">
-      Aquí encontrarás información sobre terrenos disponibles.
-    </Typography>
-  </Container>
-);
-=======
 import { 
   Box,
   Container,
@@ -255,19 +241,4 @@ const InmobiliariaTerrenos = () => {
 
 
 
-<<<<<<< HEAD
-// const InmobiliariaTerrenos = () => (
-//   <Container style={{ padding: "2rem 0" }}>
-//     <Typography variant="h4" gutterBottom>
-//       Terrenos
-//     </Typography>
-//     <Typography variant="body1">
-//       Aquí encontrarás información sobre terrenos disponibles.
-//     </Typography>
-//   </Container>
-// );
->>>>>>> de4a2cc (inmobiliaria)
-
-=======
->>>>>>> 2474f22 (Locales)
 export default InmobiliariaTerrenos;

@@ -1,25 +1,9 @@
 import React from "react";
-<<<<<<< HEAD
-import { Typography, Container } from "@mui/material";
-
-const InmobiliariaApartamentos = () => (
-  <Container style={{ padding: "2rem 0" }}>
-    <Typography variant="h4" gutterBottom>
-      Apartamentos
-    </Typography>
-    <Typography variant="body1">
-      Aquí encontrarás información sobre apartamentos disponibles.
-    </Typography>
-  </Container>
-);
-
-export default InmobiliariaApartamentos;
-=======
 import {
   Box,
   Container,
   Typography,
-  Grid, 
+  Grid,
   Card,
   CardContent,
   CardMedia,
@@ -33,28 +17,37 @@ import { useSpring, animated } from "@react-spring/web";
 const apartmentListings = [
   {
     id: 1,
-    title: "Apartamento",
-    image: "",
-    description: "K",
-    location: "A",
-    price: "$",
+    title: "Apartamento de Lujo en El Bosque",
+    image: "https://via.placeholder.com/400x280?text=Apartamento+1", // Placeholder image
+    description: "Espacioso apartamento con acabados de primera, vistas panorámicas y seguridad 24/7. Incluye 3 habitaciones, 2 baños y terraza.",
+    location: "El Bosque, Mérida",
+    price: "$250,000",
   },
   {
     id: 2,
-    title: "Apartamento",
-    image: "",
-    description: "",
-    location: "",
-    price: "$",
+    title: "Apartamento Moderno en Centro",
+    image: "https://via.placeholder.com/400x280?text=Apartamento+2", // Placeholder image
+    description: "Moderno apartamento en el corazón de la ciudad, ideal para profesionales. Cuenta con 2 habitaciones, 1 baño y cocina equipada.",
+    location: "Centro, Mérida",
+    price: "$180,000",
   },
   {
     id: 3,
-    title: "Apartamento",
-    image: "",
-    description: "",
-    location: ""
+    title: "Penthouse Exclusivo con Terraza",
+    image: "https://via.placeholder.com/400x280?text=Apartamento+3", // Placeholder image
+    description: "Espectacular penthouse con amplia terraza privada, 4 habitaciones, 3 baños y piscina. Un estilo de vida único.",
+    location: "Los Próceres, Mérida",
+    price: "$450,000",
   },
-  ];
+  {
+    id: 4,
+    title: "Loft Minimalista",
+    image: "https://via.placeholder.com/400x280?text=Apartamento+4", 
+    description: "Loft de diseño minimalista, perfecto para solteros o parejas. Espacios abiertos, mucha luz natural y excelente ubicación.",
+    location: "La Parroquia, Mérida",
+    price: "$120,000",
+  },
+];
 
 
 const ApartmentCard = ({ apartment, index }) => {
@@ -73,11 +66,12 @@ const ApartmentCard = ({ apartment, index }) => {
 
   const handleSeeDetails = (id) => {
     console.log(`Ver detalles del apartamento con ID: ${id}`);
-
+    // Aquí podrías navegar a una página de detalles del apartamento, por ejemplo:
+    // navigate(`/apartamentos/${id}`);
   };
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} ref={ref}> 
+    <Grid item xs={12} sm={6} md={4} lg={3} ref={ref}>
       <animated.div style={springProps}>
         <Card
           sx={{
@@ -103,7 +97,6 @@ const ApartmentCard = ({ apartment, index }) => {
               position: "relative",
               width: "100%",
               overflow: "hidden",
-
             }}
           >
             <CardMedia
@@ -196,7 +189,7 @@ const ApartmentCard = ({ apartment, index }) => {
                 color: "#3756a9",
                 border: "2px solid #3756a9",
                 '&:hover': {
-                  backgroundColor: "#3756a9", 
+                  backgroundColor: "#3756a9",
                   borderColor: "#2e4a8f",
                   color: "#fff"
                 }
@@ -267,7 +260,3 @@ const InmobiliariaApartamentos = () => {
 };
 
 export default InmobiliariaApartamentos;
-
-
-
->>>>>>> de4a2cc (inmobiliaria)

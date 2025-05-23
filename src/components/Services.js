@@ -110,10 +110,7 @@ const ServiceCard = ({ service, index }) => {
         >
           <CardContent sx={{ flexGrow: 1, textAlign: "center", p: 3 }}>
             <Box
-<<<<<<< HEAD
-=======
             id="services"
->>>>>>> de4a2cc (inmobiliaria)
               sx={{
                 display: "flex",
                 justifyContent: "center",
