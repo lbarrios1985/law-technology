@@ -20,10 +20,6 @@ const SuccessCases = () => {
   return (
     <Box
       id="success"
-      sx={{
-        py: { xs: 8, md: 12 },
-        backgroundColor: theme.palette.background.paper,
-      }}
     >
       <Container maxWidth="lg">
         <Box ref={ref} sx={{ mb: 8, textAlign: 'center' }}>

@@ -68,16 +68,7 @@ function Section({ id, title, content, icon, index }) {
           }}
         >
           <Box
-<<<<<<< HEAD
-=======
           id="about"
->>>>>>> de4a2cc (inmobiliaria)
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              mb: 2,
-              color: theme.palette.burgundy[700],
-            }}
           >
             {icon}
             <Typography

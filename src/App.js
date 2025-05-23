@@ -24,7 +24,6 @@ import InmobiliariaLocales from "./components/InmobiliariaLocales";
 import InmobiliariaTerrenos from "./components/InmobiliariaTerrenos";
 import LocalDetails from "./components/localdetails";
 import NotFound from "./components/NotFound";
-import HouseDetails from "./components/housedetails";
 
 function App() {
   return (
@@ -61,7 +60,6 @@ function App() {
 
      {/* Nueva ruta para los detalles de la inmobiliaria */}
      <Route path="/inmobiliaria/locales/:id" element={<LocalDetails />} />
-     <Route path="/inmobiliaria/casas/:id" element={<HouseDetails/>} />
 
 
             {/* Puedes agregar más rutas si necesitas */}

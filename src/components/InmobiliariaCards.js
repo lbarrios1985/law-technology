@@ -12,28 +12,24 @@ const inmobiliariaSections = [
     description: "Encuentra apartamentos en venta y alquiler.",
     icon: <Apartment fontSize="large" />,
     route: "/inmobiliaria/apartamentos",
-    color: "#1e88e5", 
   },
   {
     title: "Casas",
     description: "Casas disponibles para todos los gustos y necesidades.",
     icon: <Home fontSize="large" />,
     route: "/inmobiliaria/casas",
-    color: "#3756a9", 
   },
   {
     title: "Locales",
     description: "Locales comerciales en ubicaciones estratégicas.",
     icon: <Store fontSize="large" />,
     route: "/inmobiliaria/locales",
-    color: "#fbc02d", 
-  },
+   },
   {
     title: "Terrenos",
     description: "Terrenos para construir el proyecto de tus sueños.",
     icon: <Terrain fontSize="large" />,
-    route: "/inmobiliaria/terrenos",
-    color: "#e53935", 
+    route: "/inmobiliaria/terrenos", 
   },
 ];
 
@@ -58,7 +54,7 @@ const InmobiliariaCard = ({ section, index }) => {
             flexDirection: "column",
             cursor: "pointer",
             background: section.color,
-            color: "#fff",
+            color: "#3756a9",
             transition: "transform 0.3s ease-in-out",
             "&:hover": {
               transform: "translateY(-8px)",
@@ -75,7 +71,7 @@ const InmobiliariaCard = ({ section, index }) => {
             <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
               {section.title}
             </Typography>
-            <Typography variant="body2" sx={{ color: "#fff", lineHeight: 1.8 }}>
+            <Typography variant="body2" sx={{ color: "#3756a9", lineHeight: 1.8 }}>
               {section.description}
             </Typography>
           </CardContent>

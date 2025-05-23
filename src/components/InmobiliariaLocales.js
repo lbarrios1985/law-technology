@@ -110,7 +110,7 @@ const LocalCard = ({ local, index }) => {
                   transition: "transform 0.3s ease-in-out",
                   "&:hover": {
                     transform: "scale(1.03)",
-                  }, // Removed blur as it might not be desired on hover
+                  }, 
                 }}
                 image={local.image}
                 alt={local.title}
@@ -218,7 +218,7 @@ const InmobiliariaLocales = () => {
 
   return (
     <Box
-      id="locales" // Changed ID to 'locales' for consistency
+      id="locales"
       sx={{
         py: { xs: 8, md: 10 },
         mt: { xs: 4, md: 6 },

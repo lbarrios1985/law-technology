@@ -59,7 +59,8 @@ const HouseCard = ({ house, index }) => {
   });
 
   const handleSeeDetails = (id) => {
-    console.log(`Ver detalles de la casa con ID: ${id}`);
+    console.log(`Ver detalles de la casas con ID: ${id}`);
+
   };
 
   return (
