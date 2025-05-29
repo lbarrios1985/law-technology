@@ -71,7 +71,7 @@ const InmobiliariaCard = ({ section, index }) => {
             <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
               {section.title}
             </Typography>
-            <Typography variant="body2" sx={{ color: "#3756a9", lineHeight: 1.8 }}>
+            <Typography variant="body2" sx={{ color: "#3756a9", lineHeight: 1.8, fontWeight: "500" }}>
               {section.description}
             </Typography>
           </CardContent>

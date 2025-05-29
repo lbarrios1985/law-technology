@@ -1,39 +1,83 @@
-
-import { 
+import React, { useState } from "react";
+import {
   Box,
-  Container,
-  Typography,
-  Grid, 
+  Grid,
   Card,
   CardContent,
   CardMedia,
+  Typography,
   Button,
   useTheme,
- } from "@mui/material";
-
+  Container,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import LandscapeIcon from '@mui/icons-material/Landscape'; 
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
+import { useNavigate } from "react-router-dom";
 
-    const landlistings = [
-      {
-        id: 1,
-    title: "terreno",
-    image: "", 
-    description: "",
-    location: "",
-    price: "$",     
+
+const landlistings = [
+  // --- TERRENOS EN VENTA ---
+  {
+    id: "terreno-1",
+    title: "Terreno Central",
+    image: "",
+    description: "Ideal para desarrollo comercial o residencial en una zona céntrica.",
+    location: "Mérida, Venezuela",
+    price: "$150,000",
+    type: "Venta", 
+    terrainSize: "500,0 m²",
   },
+  {
+    id: "terreno-2",
+    title: "Lote con Vista a la Montaña",
+    image: "",
+    description: "Terreno campestre con excelente vista, perfecto para casa de descanso.",
+    location: "Tabay, Venezuela",
+    price: "$80,000",
+    type: "Venta",
+    terrainSize: "1200,0 m²",
+  },
+  {
+    id: "terreno-3",
+    title: "Terreno Urbano",
+    image: "",
+    description: "Amplio terreno con acceso a servicios básicos, listo para construir.",
+    location: "Ejido, Venezuela",
+    price: "$95,000",
+    type: "Venta", 
+    terrainSize: "600,0 m²",
+  },
+  {
+    id: "terreno-4",
+    title: "Parcela en Zona Residencial",
+    image: "",
+    description: "Ubicado en urbanización privada con seguridad 24/7.",
+    location: "El Vigía, Venezuela",
+    price: "$110,000",
+    type: "Venta", 
+    terrainSize: "450,0 m²",
+  },
+
+
+  // --- TERRENOS EN ALQUILER ---
 
   {
-    id: 0,
-    title: "terreno",
+    id: "terreno-1",
+    title: "Parcela en Urbanización Nueva",
     image: "",
-    description: "",
-    location: "",
-    price: "$",
+    description: "Excelente ubicación para construir la casa de tus sueños, con servicios.",
+    location: "San Juan, Venezuela",
+    price: "$85,000",
+    type: "Alquiler",
+    terrainSize: "400,0 m²",
   },
+];
 
-]
 
 const LandCard =({ land, index }) => {
   const theme = useTheme();
@@ -42,67 +86,97 @@ const LandCard =({ land, index }) => {
     triggerOnce: true,
   });
 
-   const springProps = useSpring({
-      opacity: inView ? 1 : 0,
-      transform: inView ? "translateY(0)" : "translateY(50px)",
-      delay: index * 150,
-      config: { tension: 280, friction: 60 },
-    });
-  
-    const handleSeeDetails = (id) => {
-      console.log(`Ver detalles de los Terrenos con ID: ${id}`);
-    }
+  const navigate = useNavigate();
+
+  const springProps = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(50px)",
+    delay: index * 150,
+    config: { tension: 280, friction: 60 },
+  });
+
+  const handleSeeDetails = (terrenoId) => {
+    navigate(`/inmobiliaria/terrenos/${terrenoId}`);
+  };
 
 return (
-  <Grid item xs={12} sm={6} md={4} lg={3} ref={ref}>
-    <animated.div style={springProps}>
-    <Card
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            transition: "all 0.3s ease-in-out",
-            overflow: "hidden",
-            borderRadius: theme.shape.borderRadius * 2,
-            boxShadow: theme.shadows[1],
-            "&:hover": {
-              transform: "translateY(-4px)",
-              boxShadow: theme.shadows[4],},
-            width: "100%",
-            maxWidth: 450,
-            mx: "auto",
-            minHeight: { xs: "auto", md: "480px" },
-            backgroundColor: theme.palette.background.paper,
-          }}
-        >
-          <Box
+  <Grid
+        item
+        xs={12} sm={8} md={6} lg={4}
+        ref={ref}
+        sx={{ display: 'flex', flexDirection: 'column' }}
+    >
+    <animated.div style={{ ...springProps, height: '100%', display: 'flex', flexDirection: 'column' }}>
+         <Card
            sx={{
-          position: "relative",
-          width: "100%",
-          overflow: "hidden",
-          }}
-        >        
-        <CardMedia
-        component="img"
-        sx={{
-        width: "100%",
-        height: 280,
-        display: "block",
-        objectFit: "cover",
-        transition: "transform 0.3s ease-in-out",
-        "&:hover": {
-        transform: "scale(1.03)",
-        },
-        }}
-        image={land.image}
-        alt={land.title}
-        />
-          <Typography
+           display: "flex",
+           flexDirection: "column",
+           height: '100%',
+           alignItems: "stretch",
+           transition: "all 0.3s ease-in-out",
+           overflow: "hidden",
+           borderRadius: theme.shape.borderRadius * 1,
+           boxShadow: theme.shadows[2],
+           "&:hover": {
+           transform: "translateY(-4px)",
+           boxShadow: theme.shadows[6],
+           },
+           width: "100%",
+           maxWidth: { xs: '90%', sm: 380, md: 380, lg: 380 },
+           mx: "auto",
+           backgroundColor: theme.palette.background.paper,
+           }}
+           >
+            <Box
+             sx={{
+             position: "relative",
+             width: "100%",
+             height: 200,
+             overflow: "hidden",
+             }}
+             >
+          <CardMedia
+            component="img"
+            sx={{
+            width: "100%",
+            height: "100%",
+            display: "block",
+            objectFit: "cover",
+            }}
+            image={land.image || '/images/placeholder-land.jpg'}
+            alt={land.title}
+            />
+
+            {/* Type Tag (Venta or Alquiler) - Ahora basado en land.type */}
+            <Box
+                sx={{
+                  position: 'absolute',
+                  top: 12,
+                  left: 12,
+                  backgroundColor: land.type === 'Venta' ? theme.palette.primary.main : theme.palette.success.main, // Azul para Venta, Verde para Alquiler
+                  color: 'white',
+                  px: 1,
+                  py: 0.5,
+                  borderRadius: 1,
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography component="span" sx={{ fontSize: '0.9rem', mr: 0.5 }}>
+                  {land.type === 'Venta' ? '💰' : '🔑'}
+                </Typography>
+                {land.type}
+              </Box>
+
+            <Typography
               variant="body1"
               sx={{
               position: 'absolute',
               bottom: 12,
-              left: 12,
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              right: 12,
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
               color: 'white',
               px: 1.5,
               py: 0.5,
@@ -110,79 +184,108 @@ return (
               fontWeight: 600,
               fontSize: '0.9rem',
               }}
-            >
-               {land.price}
-            </Typography>         
+              >
+              {land.price}
+            </Typography>
           </Box>
-          <CardContent
-            sx={{
-            flex: 1,
-            p: { xs: 2, md: 3 },
-            display: "flex",
-            flexDirection: "column",
-             justifyContent: "space-between",
-            }}
-          >
-            <Box>
-              <Typography
-              variant="h6"
-              component="h3"
+            <CardContent
               sx={{
-              fontWeight: 700,
-              color:"#242649",
-              mb: 0.5,
-              lineHeight: 1.3,
+              flexGrow: 1,
+              p: { xs: 1.5, md: 2 },
+              display: "flex",
+              flexDirection: "column",
               }}
               >
-          {land.title}
-              </Typography>
               <Typography
                 variant="body2"
+                color="text.secondary"
                 sx={{
-                mb: 1,
-                color: "#242649",
-                fontWeight: 500,
+                  fontSize: '0.85rem',
+                  mb: 0.5,
                 }}
               >
-                {land.location}
+                Terreno en {land.type.toLowerCase()}
               </Typography>
-            </Box>
-            <Typography
-              variant="body2"
-              color="#242649"
-              sx={{
-              lineHeight: 1.5,
-              mb: 2,
-              flexGrow: 1,
-              }}
-            >
-            {land.description}
-            </Typography>
-                <Button
-                  color="primary"
-                  onClick={() => handleSeeDetails(land.id)}
-                  sx={{
+              <Typography
+                variant="h6"
+                component="h3"
+                sx={{
+                  fontWeight: 700,
+                  color: theme.palette.text.primary,
+                  mb: 0.5,
+                  lineHeight: 1.2,
+                  fontSize: '1.2rem',
+                }}
+              >
+                {land.title}
+              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  mb: 1.5,
+                  color: theme.palette.text.secondary,
+                  fontSize: '0.9rem',
+                }}
+              >
+                <LocationOnIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
+                <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>
+                  {land.location}
+                </Typography>
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                  {land.terrainSize && (
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, color: theme.palette.text.secondary }}>
+                        <LandscapeIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
+                        <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+                            Área: {land.terrainSize}
+                        </Typography>
+                    </Box>
+                )}
+              </Box>
+
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{
+                  lineHeight: 1.5,
+                  mb: 2,
+                  flexGrow: 1,
+                  fontSize: '0.85rem',
+                  maxHeight: '4.5em',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {land.description}
+              </Typography>
+
+              <Button
+                color="primary"
+                onClick={() => handleSeeDetails(land.id)}
+                sx={{
                   mt: "auto",
                   width: "100%",
                   borderRadius: 2,
-                 fontWeight: 600,
+                  fontWeight: 600,
                   color: "#3756a9",
-                  border: "2px solid #3756a9",
-                 '&:hover': {
-                  backgroundColor: "#3756a9", 
-                   borderColor: "#2e4a8f",
-                  color: "#fff"
-                   }
-                 }}
-                >
+                  py: 0.5,
+                  fontSize: '0.9rem',
+                  '&:hover': {
+                    backgroundColor: "#3756a9",
+                    color: "white",
+                  }
+                }}
+              >
                 Ver Propiedad
-                </Button>
-          </CardContent>  
+              </Button>
+            </CardContent>
           </Card>
-    </animated.div>
-  </Grid>
-);
+        </animated.div>
+      </Grid>
+    );
 };
+
 
 const InmobiliariaTerrenos = () => {
   const theme = useTheme();
@@ -196,6 +299,32 @@ const InmobiliariaTerrenos = () => {
     transform: inView ? "translateY(0)" : "translateY(50px)",
     config: { tension: 280, friction: 60 },
   });
+
+  const [filterType, setFilterType] = useState('Venta'); 
+  const [page, setPage] = useState('1');
+  const itemsPerPage = 6; 
+  
+  const handleChangePage = (event, newPage) => {
+    if (newPage !== null) {
+      setPage(newPage);
+    }
+  };
+
+  const handleFilterChange = (event, newFilter) => {
+    if (newFilter !== null) {
+      setFilterType(newFilter);
+      setPage('1'); 
+    }
+  };
+
+ 
+  const filteredLands = landlistings.filter(land => land.type === filterType);
+
+  const startIndex = (parseInt(page) - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentLands = filteredLands.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(filteredLands.length / itemsPerPage);
 
   return (
     <Box
@@ -218,27 +347,111 @@ const InmobiliariaTerrenos = () => {
                 color: theme.palette.text.primary,
               }}
             >
-              Propiedades Destacadas
+              Nuestros Terrenos Destacados
             </Typography>
             <Typography
               variant="body1"
               color="text.secondary"
               sx={{ maxWidth: "700px", mx: "auto", lineHeight: 1.6 }}
             >
-              Descubre nuestra exclusiva selección de locales disponibles, diseñados para ofrecer el máximo confort y estilo de vida.
+              Explora nuestra selección exclusiva de terrenos, ideales para construir tu hogar soñado o realizar tu próxima inversión inmobiliaria.
             </Typography>
           </animated.div>
         </Box>
-        <Grid container spacing={4} justifyContent="center">
-          {landlistings.map((land, index) => (
+
+        {/* Botones de Filtro (Venta, Alquiler) */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: { xs: 4, md: 6 } }}>
+          <ToggleButtonGroup
+            value={filterType}
+            exclusive
+            onChange={handleFilterChange}
+            aria-label="filtro de tipo de terreno"
+            sx={{
+              borderRadius: 2,
+              '& .MuiToggleButtonGroup-grouped': {
+                margin: theme.spacing(0.5),
+                border: '1px solid',
+                borderColor: theme.palette.grey[400],
+                '&.Mui-selected': {
+                  backgroundColor: "#3756a9",
+                  color: 'white',
+                  borderColor: "#3756a9",
+                  '&:hover': {
+                    backgroundColor: "#3756a9",
+                  },
+                },
+                '&:not(:first-of-type)': {
+                  borderRadius: 2,
+                  borderLeft: '1px solid',
+                  borderColor: theme.palette.grey[400],
+                },
+                '&:first-of-type': {
+                  borderRadius: 2,
+                },
+              },
+            }}
+          >
+            <ToggleButton value="Venta" sx={{ fontWeight: 600, color: "#3756a9" }}>Venta</ToggleButton>
+            <ToggleButton value="Alquiler" sx={{ fontWeight: 600, color: "#3756a9" }}>Alquiler</ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
+
+        <Grid container spacing={4} justifyContent="center" alignItems="stretch">
+          {currentLands.map((land, index) => (
             <LandCard key={land.id} land={land} index={index} />
           ))}
         </Grid>
+        {totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, mb: 4 }}>
+            <ToggleButtonGroup
+              value={page}
+              exclusive
+              onChange={handleChangePage}
+              aria-label="paginación"
+              sx={{
+                borderRadius: 2,
+                '& .MuiToggleButtonGroup-grouped': {
+                  margin: theme.spacing(0.5),
+                  border: '1px solid',
+                  borderColor: theme.palette.grey[400],
+                  '&.Mui-selected': {
+                    backgroundColor: "#3756a9",
+                    color: 'white',
+                    borderColor: "#3756a9",
+                  },
+                  '&:not(:first-of-type)': {
+                    borderRadius: 2,
+                    borderLeft: '1px solid',
+                    borderColor: theme.palette.grey[400],
+                  },
+                  '&:first-of-type': {
+                    borderRadius: 2,
+                  },
+                },
+              }}
+            >
+              {Array.from({ length: totalPages }, (_, i) => (
+                <ToggleButton
+                  key={i + 1}
+                  value={(i + 1).toString()}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    color: "#3756a9",
+                  }}
+                >
+                  {i + 1}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </Box>
+        )}
       </Container>
     </Box>
   );
 };
-
 
 
 export default InmobiliariaTerrenos;

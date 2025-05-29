@@ -23,7 +23,12 @@ import InmobiliariaCasas from "./components/InmobiliariaCasas";
 import InmobiliariaLocales from "./components/InmobiliariaLocales";
 import InmobiliariaTerrenos from "./components/InmobiliariaTerrenos";
 import LocalDetails from "./components/localdetails";
+import ApartmentDetails from "./components/apartmentdetails";
 import NotFound from "./components/NotFound";
+import HouseDetails from "./components/housedetails";
+import TerrenoDetails from "./components/terrenodetails";
+
+
 
 function App() {
   return (
@@ -52,6 +57,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/success" element={<SuccessCase />} />
             <Route path="/contact" element={<ContactSection />} />
+            <Route path="/inmobiliaria" element={<Inmobiliaria/>}/>
             {/* Rutas de Inmobiliaria */}
             <Route path="/inmobiliaria/apartamentos" element={<InmobiliariaApartamentos />} />
             <Route path="/inmobiliaria/casas" element={<InmobiliariaCasas />} />
@@ -60,6 +66,9 @@ function App() {
 
      {/* Nueva ruta para los detalles de la inmobiliaria */}
      <Route path="/inmobiliaria/locales/:id" element={<LocalDetails />} />
+     <Route path="/inmobiliaria/apartamentos/:id" element= {<ApartmentDetails/>} />
+     <Route path="/inmobiliaria/casas/:id" element={< HouseDetails/>} />
+     <Route path="/inmobiliaria/terrenos/:id" element={<TerrenoDetails/>} />
 
 
             {/* Puedes agregar más rutas si necesitas */}
