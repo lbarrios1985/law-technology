@@ -54,7 +54,7 @@ const InmobiliariaCard = ({ section, index }) => {
             flexDirection: "column",
             cursor: "pointer",
             background: section.color,
-            color: "#3756a9",
+            color: "#1C3155",
             transition: "transform 0.3s ease-in-out",
             "&:hover": {
               transform: "translateY(-8px)",
@@ -71,7 +71,7 @@ const InmobiliariaCard = ({ section, index }) => {
             <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
               {section.title}
             </Typography>
-            <Typography variant="body2" sx={{ color: "#3756a9", lineHeight: 1.8, fontWeight: "500" }}>
+            <Typography variant="body2" sx={{ color: "#1C3155", lineHeight: 1.8, fontWeight: "500" }}>
               {section.description}
             </Typography>
           </CardContent>

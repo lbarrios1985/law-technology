@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { 
-Box, 
-Container, 
-Typography, 
-Paper, 
-IconButton, 
-Backdrop, 
-styled, 
-Grid, 
-Button } from '@mui/material';
+import {
+    Box,
+    Container,
+    Typography,
+    Paper,
+    IconButton,
+    Backdrop,
+    styled,
+    Grid,
+    Button
+} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -29,43 +30,43 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-
-
 const allApartments = [
-   // --- APARTAMENTOS EN VENTA ---
+
     {
-      id: "venta-001",
-      title: "Apartamento Céntrico con Vistas",
-      images: [
-      ],
-      price: "$150,000",
-      description: "Moderno apartamento en el corazón de la ciudad, con excelentes vistas y todas las comodidades.",
-      terrainSize: "80,0 m²", 
-      bathrooms: 2,
-      location: "Mérida, Venezuela",
-      latitude: 8.5897,
-      longitude: -71.1966,
-      locationText: "Avenida 3 Independencia, Edificio Plaza, Piso 5",
-      details: "Cocina equipada, balcón, seguridad 24 horas, cerca de comercios y transporte público."
+        id: "venta-001",
+        type: "venta",
+        title: "Apartamento Céntrico con Vistas",
+        images: [
+        ],
+        price: "$",
+        description: "Moderno apartamento en el corazón de la ciudad, con excelentes vistas y todas las comodidades.",
+        terrainSize: "m²",
+        bedrooms: false,
+        bathrooms: false,
+        location: "Mérida, Venezuela",
+        latitude: 8.5897,
+        longitude: -71.1966,
+        locationText: "Avenida 3 Independencia, Edificio Plaza, Piso 5",
+        details: "Cocina equipada, balcón, seguridad 24 horas, cerca de comercios y transporte público."
     },
 
- // --- APARTAMENTOS EN ALQUILER ---
+    // --- APARTAMENTOS EN ALQUILER ---
     {
-      id: "alquiler-001",
-      title: "Apartamento Espacioso en Zona Residencial",
-      images: [
-
-      ],
-      price: "$120,000",
-      description: "Amplio apartamento ideal para familias, ubicado en una tranquila zona residencial con parques cercanos.",
-      terrainSize: "95,0 m²",
-      bedrooms: 4,
-      bathrooms: 2,
-      location: "Mérida, Venezuela",
-      latitude: 8.6015,
-      longitude: -71.1472,
-      locationText: "Urbanización Los Chorros, Calle Principal, Edificio Oasis",
-      details: "Áreas verdes, piscina comunitaria, salón de fiestas, estacionamiento techado."
+        id: "alquiler-001",
+        type: "alquiler",
+        title: "Penthouse de Lujo con Terraza Panorámica y Jacuzzi Privado",
+        images: [
+        ],
+        price: "$",
+        description: "Amplio apartamento ideal para familias, ubicado en una tranquila zona residencial con parques cercanos.",
+        terrainSize: "95,0 m²",
+        bedrooms: true,
+        bathrooms: true,
+        location: "Mérida, Venezuela",
+        latitude: 8.6015,
+        longitude: -71.1472,
+        locationText: "Urbanización Los Chorros, Calle Principal, Edificio Oasis",
+        details: "Áreas verdes, piscina comunitaria, salón de fiestas, estacionamiento techado."
     },
 ];
 
@@ -82,7 +83,6 @@ const LightboxContainer = styled(Backdrop)(({ theme }) => ({
     height: '100%',
 }));
 
-
 const LightboxImage = styled('img')({
     maxWidth: '85%',
     maxHeight: '85%',
@@ -90,7 +90,6 @@ const LightboxImage = styled('img')({
     objectFit: 'contain',
     userSelect: 'none',
 });
-
 
 const NavigationButton = styled(IconButton)(({ theme }) => ({
     position: 'absolute',
@@ -102,417 +101,467 @@ const NavigationButton = styled(IconButton)(({ theme }) => ({
     zIndex: 11,
     padding: theme.spacing(0.5),
     margin: theme.spacing(0.25),
-    [theme.breakpoints.down('sm')]: {
-        padding: theme.spacing(0.25),
-        margin: theme.spacing(0.1),
-        '& .MuiSvgIcon-root': {
-            fontSize: '1rem',
-        },
+    alignSelf: 'center',
+    '&.prev': {
+        left: theme.spacing(2),
     },
+    '&.next': {
+        right: theme.spacing(2),
+    },
+    '& .MuiSvgIcon-root': {
+        fontSize: '2rem',
+        fontSize: theme.breakpoints.down('sm') ? '1.5rem' : '2rem',
+    },
+    padding: theme.breakpoints.down('sm') ? theme.spacing(0.25) : theme.spacing(0.5),
+    margin: theme.breakpoints.down('sm') ? theme.spacing(0.1) : theme.spacing(0.25),
 }));
 
 const ApartmentDetails = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  const apartment = allApartments.find(a => a.id === id);
+    const apartment = allApartments.find(a => a.id === id);
 
-  const handleImageClick = useCallback((index) => {
-      setSelectedImageIndex(index);
-      setLightboxOpen(true);
-  }, []);
+    const handleImageClick = useCallback((index) => {
+        setSelectedImageIndex(index);
+        setLightboxOpen(true);
+    }, []);
 
-  const handleCloseLightbox = useCallback(() => {
-      setLightboxOpen(false);
-  }, []);
+    const handleCloseLightbox = useCallback(() => {
+        setLightboxOpen(false);
+    }, []);
 
-  const handleNextImage = useCallback((event) => {
-      if (event) {
-          event.stopPropagation();
-      }
-      setSelectedImageIndex((prevIndex) => (prevIndex + 1) % (apartment?.images?.length || 1));
-  }, [apartment?.images?.length]);
-
-  const handlePrevImage = useCallback((event) => {
-      if (event) {
-          event.stopPropagation();
-      }
-      setSelectedImageIndex((prevIndex) => (prevIndex - 1 + (apartment?.images?.length || 1)) % (apartment?.images?.length || 1));
-  }, [apartment?.images?.length]);
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (lightboxOpen && apartment?.images && apartment.images.length > 0) {
-        switch (event.key) {
-          case 'ArrowRight':
-            handleNextImage();
-            break;
-          case 'ArrowLeft':
-            handlePrevImage();
-            break;
-          case 'Escape':
-            handleCloseLightbox();
-            break;
-          default:
-            break;
+    const handleNextImage = useCallback((event) => {
+        if (event) {
+            event.stopPropagation();
         }
-      }
-    };
+        setSelectedImageIndex((prevIndex) => (prevIndex + 1) % (apartment?.images?.length || 1));
+    }, [apartment?.images?.length]);
 
-    window.addEventListener('keydown', handleKeyDown);
+    const handlePrevImage = useCallback((event) => {
+        if (event) {
+            event.stopPropagation();
+        }
+        setSelectedImageIndex((prevIndex) => (prevIndex - 1 + (apartment?.images?.length || 1)) % (apartment?.images?.length || 1));
+    }, [apartment?.images?.length]);
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [lightboxOpen, handleNextImage, handlePrevImage, handleCloseLightbox, apartment?.images]);
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (lightboxOpen && apartment?.images && apartment.images.length > 0) {
+                switch (event.key) {
+                    case 'ArrowRight':
+                        handleNextImage();
+                        break;
+                    case 'ArrowLeft':
+                        handlePrevImage();
+                        break;
+                    case 'Escape':
+                        handleCloseLightbox();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
 
-  if (!apartment) {
-    return (
-      <Container sx={{ py: 4, textAlign: 'center' }}>
-        <Typography variant="h6" color="error">Apartamento no encontrado.</Typography>
-      </Container>
-    );
-  }
+        window.addEventListener('keydown', handleKeyDown);
 
- const mapPosition = apartment.latitude && apartment.longitude ? [apartment.latitude, apartment.longitude] : null;
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [lightboxOpen, handleNextImage, handlePrevImage, handleCloseLightbox, apartment?.images]);
 
-  const handleOpenInMap = () => {
-    if (mapPosition) {
-      // Corrected Google Maps URL format
-      window.open(`https://www.google.com/maps/search/?api=1&query=${mapPosition[0]},${mapPosition[1]}`, '_blank');
-    }
-  };
-
-  return (
-    <Container maxWidth="sm" sx={{
-      py: { xs: 1, sm: 2, md: 3 },
-      mt: { xs: 4, sm: 6, md: 8 },
-      px: { xs: 1, sm: 1.5, md: 0 },
-    }}>
-      <Paper elevation={2} sx={{
-        p: { xs: 1, sm: 1.5, md: 2 },
-        borderRadius: 1,
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        <IconButton
-          onClick={() => navigate(-1)}
-          sx={{
-            position: 'absolute',
-            top: { xs: 4, md: 8 },
-            left: { xs: 4, md: 8 },
-            zIndex: 2,
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            '&:hover': {
-              backgroundColor: 'rgba(255, 255, 255, 0.9)',
-              boxShadow: 'none',
-            },
-            transition: 'background-color 0.2s ease',
-            color: 'black',
-          }}
-        >
-          <ArrowBackIcon sx={{ fontSize: '1.6rem' }}/>
-        </IconButton>
-        <Typography
-          variant="h6"
-          component="h1"
-          gutterBottom
-          sx={{
-            display: 'flex',
-            fontWeight: 700,
-            fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            color: 'black',
-            mt: { xs: 4, sm: 0 },
-          }}
-        >
-          {apartment.title}
-        </Typography>
-        <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            pt: '40px',
-            mb: { xs: 1.5, md: 2 },
-        }}>
-          {apartment.images && apartment.images.length > 0 ? (
-            <>
-              <Box sx={{
-                width: '100%',
-                maxWidth: '450px',
-                height: 'auto',
-                mb: 1.5,
+    if (!apartment) {
+        return (
+            <Container sx={{
+                py: 4,
+                textAlign: 'center',
+                position: 'relative',
+                minHeight: '200px',
                 display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
                 justifyContent: 'center',
-              }}>
-                <img
-                  src={apartment.images[0]}
-                  alt={`${apartment.title} 1`}
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    maxHeight: '300px',
-                    objectFit: 'contain',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => handleImageClick(0)}
-                />
-              </Box>
-
-              <Grid container spacing={1} justifyContent="center">
-                {apartment.images.slice(1).map((img, index) => (
-                  <Grid item xs={3} sm={2.5} md={2} key={index}>
-                    <Box
-                      sx={{
-                        width: '100%',
-                        height: { xs: '60px', sm: '70px', md: '80px' },
-                        overflow: 'hidden',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        '&:hover': {
-                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
-                            transform: 'scale(1.02)',
-                            transition: 'all 0.2s ease-in-out',
-                        }
-                      }}
-                      onClick={() => handleImageClick(index + 1)} >
-                      <img
-                        src={img}
-                        alt={`${apartment.title} thumbnail ${index + 2}`}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                          borderRadius: '4px',
-                        }}
-                      />
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-              {apartment.images.length > 5 && (
-                <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-                    <button
-                        style={{
-                            padding: '8px 16px',
-                            backgroundColor: '#A0978C',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            fontSize: '1rem',
-                            fontWeight: 'bold',
-                        }}
-                        onClick={() => handleImageClick(0)}
-                    >
-                        {apartment.images.length} Fotos
-                    </button>
-                </Box>
-              )}
-            </>
-          ) : (
-            <Typography variant="caption"  sx={{ textAlign: 'center', color: 'black' }}>
-              No hay imágenes disponibles.
-            </Typography>
-          )}
-        </Box>
-        <Typography variant="subtitle1"
-        sx={{
-          fontWeight: 700,
-            fontSize: { xs: '1.2rem', sm: '1.3rem', md: '1.6rem' },
-            textAlign: 'left',
-            width: '100%',
-            color: 'black',
-        }}>
-            {apartment.price}
-        </Typography>
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          mb: { xs: 1, md: 1.5 }
-        }}>
-            {apartment.terrainSize && (
-                <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-                    <LandscapeIcon sx={{ mr: 0.4, color: 'black', fontSize: { xs: '1.3rem', sm: '1.4rem', md: '1.5rem' } }} />
-                    <Typography variant="body2" sx={{
-                        fontSize: { xs: '1rem', sm: '1.2rem', md: '1.2rem' },
-                        color: 'black' }}>
-                        Superficie: {apartment.terrainSize}
-                    </Typography>
-                </Box>
-            )}
-            {apartment.bedrooms && (
-                <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
-                    <BedIcon sx={{ mr: 0.5, color: 'black', fontSize: { xs: '1.3rem', sm: '1.2rem', md: '1.5rem' } }} />
-                    <Typography variant="body2" sx={{
-                        fontWeight: 500,
-                        fontSize: { xs: '1rem', sm: '1.2rem', md: '1.2rem' },
-                        color: 'black' }}>
-                        Habitaciones: {apartment.bedrooms}
-                    </Typography>
-                </Box>
-            )}
-            {apartment.bathrooms && (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <BathtubIcon sx={{ mr: 0.5, color: 'black', fontSize: { xs: '1.3rem', sm: '1.4rem', md: '1.5rem' } }} />
-                    <Typography variant="body2" sx={{
-                        fontWeight: 500,
-                        fontSize: { xs: '1rem', sm: '1.2rem', md: '1.2rem' },
-                        color: 'black' }}>
-                        Baños: {apartment.bathrooms}
-                    </Typography>
-                </Box>
-            )}
-        </Box>
-
-        {/* Descripción */}
-        <Typography sx={{
-              display: 'flex',
-              fontWeight: 500,
-              fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.2rem' },
-              textAlign: 'left',
-              width: '100%',
-              color: 'black',
-        }}>
-          Descripción: {apartment.description}
-        </Typography>
-        {apartment.details && (
-          <Box sx={{
-            display: 'flex',
-            fontWeight: 500,
-            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
-            textAlign: 'left',
-            width: '100%',
-            color: 'black',
-          }}>
-              <Typography component="span" sx={{ ml: 0.25, color: 'black'}}>
-                  Detalles Adicionales: {apartment.details}
-              </Typography>
-          </Box>
-        )}
-
-        {/* Map Section */}
-        {mapPosition && (
-            <Box sx={{
-              mt: 3,
-              width: '100%',
-              borderRadius: '4px',
-              overflow: 'hidden',
             }}>
-               <Box sx={{ mb: { xs: 1, md: 1.5 } }}>
-            <Typography variant="body1" sx={{
-              fontWeight: 500,
-              fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.2rem' },
-              textAlign: 'left', width: '100%',
-              color: 'black',
-            }}>
-             {apartment.location}
-            </Typography>
-            <Typography variant="body2" sx={{
-                fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
-                textAlign: 'left', width: '100%', color: 'black' }}>
-                {apartment.locationText}
-            </Typography>
-        </Box>
-                <Button
-                    onClick={handleOpenInMap}
+                <IconButton
+                    onClick={() => navigate(-1)}
                     sx={{
-
-                        backgroundColor: '#D3BE9B',
-                        color: 'black',
-                        fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
-                        padding: { xs: '6px 12px', sm: '8px 16px' },
-                        borderRadius: '4px',
-                        textTransform: 'none',
-                        minWidth: 'unset',
-                        boxShadow: 'none',
-                        mb: 2,
+                        position: 'absolute',
+                        top: { xs: 40, sm: 40 },
+                        left: { xs: 16, sm: 20 },
+                        zIndex: 1,
+                        backgroundColor: 'transparent',
                         '&:hover': {
-                            backgroundColor: '#C5AE87',
-                            boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                            boxShadow: 'none',
+                        },
+                        transition: 'background-color 0.2s ease',
+                        color: 'black',
+                        border: 'none',
+                        boxShadow: 'none',
+                    }}
+                >
+                    <ArrowBackIcon sx={{ fontSize: '1.6rem' }} />
+                </IconButton>
+                <Typography variant="h6" color="error" sx={{ mt: { xs: 6, sm: 8 }, color: "black", }}>
+                    Apartamento no encontrado.
+                </Typography>
+            </Container>
+        );
+    }
+
+    const mapPosition = apartment.latitude && apartment.longitude ? [apartment.latitude, apartment.longitude] : null;
+
+    const handleOpenInMap = () => {
+        if (mapPosition) {
+            // Se corrigió la interpolación de las coordenadas del mapa
+            window.open(`https://www.google.com/maps/search/?api=1&query=${mapPosition[0]},${mapPosition[1]}`, '_blank');
+        }
+    };
+
+    return (
+        <Container maxWidth="sm" sx={{
+            py: { xs: 1, sm: 2, md: 3 },
+            mt: { xs: 4, sm: 6, md: 8 },
+            px: { xs: 1, sm: 1.5, md: 0 },
+        }}>
+            <Paper elevation={2} sx={{
+                p: { xs: 1, sm: 1.5, md: 2 },
+                borderRadius: 1,
+                position: 'relative',
+                overflow: 'hidden',
+            }}>
+                <Box sx={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mb: { xs: 1.5, md: 2 },
+                    minHeight: { xs: '48px', sm: '64px' }
+                }}>
+                    <IconButton
+                        onClick={() => navigate(-1)}
+                        sx={{
+                            position: 'absolute',
+                            left: { xs: 4, md: 8 },
+                            zIndex: 2,
+                            backgroundColor: 'transparent',
+                            '&:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                                boxShadow: 'none',
+                            },
+                            transition: 'background-color 0.2s ease',
+                            color: 'black',
+                            border: 'none',
+                            boxShadow: 'none',
+                        }}
+                    >
+                        <ArrowBackIcon sx={{ fontSize: '1.6rem' }} />
+                    </IconButton>
+                    <Typography
+                        variant="h6"
+                        component="h1"
+                        gutterBottom
+                        sx={{
+                            fontWeight: 700,
+                            fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem' },
+                            textAlign: 'center',
+                            flexGrow: 1,
+                            color: 'black',
+                            mt: 0,
+                        }}
+                    >
+                        {apartment.title}
+                    </Typography>
+                </Box>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    pt: '40px',
+                    mb: { xs: 1.5, md: 2 },
+                }}>
+                    {apartment.images && apartment.images.length > 0 ? (
+                        <>
+                            <Box sx={{
+                                width: '100%',
+                                maxWidth: '450px',
+                                height: 'auto',
+                                mb: 1.5,
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}>
+                                <img
+                                    src={apartment.images?.[0]}
+                                    alt={`${apartment.title} 1`}
+                                    style={{
+                                        width: '100%',
+                                        height: 'auto',
+                                        maxHeight: '300px',
+                                        objectFit: 'contain',
+                                        borderRadius: '4px',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={() => handleImageClick(0)}
+                                />
+                            </Box>
+
+                            <Grid container spacing={1} justifyContent="center">
+                                {apartment.images?.map((img, index) => (
+                                    <Grid item xs={3} sm={2.5} md={2} key={index}>
+                                        <Box
+                                            sx={{
+                                                width: '100%',
+                                                height: { xs: '60px', sm: '70px', md: '80px' },
+                                                overflow: 'hidden',
+                                                borderRadius: '4px',
+                                                cursor: 'pointer',
+                                                boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)',
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                '&:hover': {
+                                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                                                    transform: 'scale(1.02)',
+                                                    transition: 'all 0.2s ease-in-out',
+                                                }
+                                            }}
+                                            onClick={() => handleImageClick(index)} >
+                                            <img
+                                                src={img}
+                                                alt={`${apartment.title} thumbnail ${index + 1}`}
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                    borderRadius: '4px',
+                                                }}
+                                            />
+                                        </Box>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </>
+                    ) : (
+                        <Typography variant="caption" sx={{ textAlign: 'center', color: 'black' }}>
+                            No hay imágenes disponibles.
+                        </Typography>
+                    )}
+                </Box>
+
+                {apartment?.type && (
+                    <Typography
+                        variant="caption"
+                        sx={{
+                            px: 1,
+                            py: 0.5,
+                            backgroundColor: apartment.type === 'venta' ? '#4CAF50' : '#2196F3',
+                            color: 'white',
+                            borderRadius: '4px',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase',
+                            fontSize: '0.8rem',
+                            mb: 0.5,
+                            display: 'block',
+                            width: 'fit-content',
+                        }}
+                    >
+                        {apartment.type === 'venta' ? 'En Venta' : 'En Alquiler'}
+                    </Typography>
+                )}
+                <Typography variant="subtitle1"
+                    sx={{
+                        fontWeight: 700,
+                        fontSize: { xs: '1.2rem', sm: '1.3rem', md: '1.6rem' },
+                        textAlign: 'left',
+                        width: '100%',
+                        color: 'black',
+                        mb: 1,
+                    }}>
+                    {apartment?.price}
+                </Typography>
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    mb: { xs: 1, md: 1.5 }
+                }}>
+                    {apartment?.terrainSize && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+                            <LandscapeIcon sx={{ mr: 0.4, color: 'black', fontSize: { xs: '1.3rem', sm: '1.4rem', md: '1.5rem' } }} />
+                            <Typography variant="body2" sx={{
+                                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.2rem' },
+                                color: 'black'
+                            }}>
+                                Terreno: {apartment.terrainSize}
+                            </Typography>
+                        </Box>
+                    )}
+                    {apartment?.bedrooms && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+                            <BedIcon sx={{ mr: 0.5, color: 'black', fontSize: { xs: '1.3rem', sm: '1.2rem', md: '1.5rem' } }} />
+                            <Typography variant="body2" sx={{
+                                fontWeight: 500,
+                                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.2rem' },
+                                color: 'black'
+                            }}>
+                                Habitaciones: {apartment.bedrooms}
+                            </Typography>
+                        </Box>
+                    )}
+                    {apartment?.bathrooms && (
+                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            <BathtubIcon sx={{ mr: 0.5, color: 'black', fontSize: { xs: '1.3rem', sm: '1.4rem', md: '1.5rem' } }} />
+                            <Typography variant="body2" sx={{
+                                fontWeight: 500,
+                                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.2rem' },
+                                color: 'black'
+                            }}>
+                                Baños: {apartment.bathrooms}
+                            </Typography>
+                        </Box>
+                    )}
+                </Box>
+
+                <Typography sx={{
+                    display: 'flex',
+                    fontWeight: 500,
+                    fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.2rem' },
+                    textAlign: 'left',
+                    width: '100%',
+                    color: 'black',
+                }}>
+                    <Typography component="span" fontWeight="bold" sx={{ color: 'black' }}>Descripción: </Typography>
+                    {apartment?.description}
+                </Typography>
+                {apartment?.details && (
+                    <Box sx={{
+                        display: 'flex',
+                        fontWeight: 500,
+                        fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                        textAlign: 'left',
+                        width: '100%',
+                        color: 'black',
+                    }}>
+                        <Typography component="span" sx={{ ml: 0.25, color: 'black' }}>
+                            <Typography component="span" fontWeight="bold" sx={{ color: 'black' }}>Detalles Adicionales: </Typography>
+                            {apartment.details}
+                        </Typography>
+                    </Box>
+                )}
+
+                {mapPosition && (
+                    <Box sx={{
+                        mt: 3,
+                        width: '100%',
+                        borderRadius: '4px',
+                        overflow: 'hidden',
+                    }}>
+                        <Box sx={{ mb: { xs: 1, md: 1.5 } }}>
+                            <Typography variant="body1" sx={{
+                                fontWeight: 500,
+                                fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.2rem' },
+                                textAlign: 'left', width: '100%',
+                                color: 'black',
+                            }}>
+                                {apartment.location}
+                            </Typography>
+                            <Typography variant="body2" sx={{
+                                fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
+                                textAlign: 'left', width: '100%', color: 'black'
+                            }}>
+                                {apartment.locationText}
+                            </Typography>
+                        </Box>
+                        <Button
+                            onClick={handleOpenInMap}
+                            sx={{
+                                backgroundColor: '#D3BE9B',
+                                color: 'black',
+                                fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
+                                padding: { xs: '6px 12px', sm: '8px 16px' },
+                                borderRadius: '4px',
+                                textTransform: 'none',
+                                minWidth: 'unset',
+                                boxShadow: 'none',
+                                mb: 2,
+                                '&:hover': {
+                                    backgroundColor: '#C5AE87',
+                                    boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
+                                },
+                            }}
+                        >
+                            Abrir en mapa
+                        </Button>
+                        <Box sx={{ height: '300px' }}>
+                            <MapContainer
+                                center={mapPosition}
+                                zoom={16}
+                                scrollWheelZoom={false}
+                                style={{ height: '100%', width: '100%' }}
+                            >
+                                <TileLayer
+                                    attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <Marker position={mapPosition}>
+                                    <Popup>
+                                        {apartment.title} <br /> {apartment.locationText}
+                                    </Popup>
+                                </Marker>
+                            </MapContainer>
+                        </Box>
+                    </Box>
+                )}
+            </Paper>
+            <LightboxContainer open={lightboxOpen} onClick={handleCloseLightbox}>
+                <IconButton
+                    onClick={handleCloseLightbox}
+                    sx={{
+                        position: 'absolute',
+                        top: { xs: 2, sm: 5 },
+                        right: { xs: 2, sm: 5 },
+                        color: 'white',
+                        zIndex: 12,
+                        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                        '&:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         },
                     }}
                 >
-                    Abrir en mapa
-                </Button>
-                <Box sx={{ height: '300px' }}>
-                  <MapContainer
-                      center={mapPosition}
-                      zoom={16}
-                      scrollWheelZoom={false}
-                      style={{ height: '100%', width: '100%' }}
-                  >
-                      <TileLayer
-                          attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                      />
-                      <Marker position={mapPosition}>
-                          <Popup>
-                              {apartment.title} <br /> {apartment.locationText}
-                          </Popup>
-                      </Marker>
-                  </MapContainer>
-                </Box>
-            </Box>
-        )}
+                    <CloseIcon sx={{ fontSize: '2rem' }} />
+                </IconButton>
+                {apartment.images && apartment.images.length > 1 && (
+                    <NavigationButton
+                        onClick={handlePrevImage}
+                        sx={{ left: { xs: 1, sm: 5 } }}
+                        aria-label="Imagen anterior"
+                    >
+                        <ArrowBackIosNewIcon sx={{ fontSize: '2rem' }} />
+                    </NavigationButton>
+                )}
+                {apartment.images && apartment.images.length > 0 && (
+                    <LightboxImage
+                        src={apartment.images[selectedImageIndex]}
+                        alt={`Imagen ampliada ${selectedImageIndex + 1}`}
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                )}
 
-      </Paper>
-      <LightboxContainer open={lightboxOpen} onClick={handleCloseLightbox}>
-          <IconButton
-              onClick={handleCloseLightbox}
-              sx={{
-                  position: 'absolute',
-                  top: { xs: 2, sm: 5 },
-                  right: { xs: 2, sm: 5 },
-                  color: 'white',
-                  zIndex: 12,
-                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                  '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                  },
-              }}
-          >
-              <CloseIcon sx={{ fontSize: '2rem' }}/>
-          </IconButton>
-          {apartment.images && apartment.images.length > 1 && (
-              <NavigationButton
-                  onClick={handlePrevImage}
-                  sx={{ left: { xs: 1, sm: 5 } }}
-                  aria-label="Imagen anterior"
-              >
-                  <ArrowBackIosNewIcon sx={{ fontSize: '2rem' }}/>
-              </NavigationButton>
-          )}
-          {apartment.images && apartment.images.length > 0 && (
-              <LightboxImage
-                  src={apartment.images[selectedImageIndex]}
-                  alt={`Imagen ampliada ${selectedImageIndex + 1}`}
-                  onClick={(e) => e.stopPropagation()}
-              />
-          )}
-
-          {apartment.images && apartment.images.length > 1 && (
-               <NavigationButton
-               onClick={handleNextImage}
-               sx={{ right: { xs: 1, sm: 5 } }}
-               aria-label="Imagen siguiente"
-           >
-               <ArrowForwardIosIcon sx={{ fontSize: '2rem' }}/>
-           </NavigationButton>
-          )}
-      </LightboxContainer>
-    </Container>
-  );
+                {apartment.images && apartment.images.length > 1 && (
+                    <NavigationButton
+                        onClick={handleNextImage}
+                        sx={{ right: { xs: 1, sm: 5 } }}
+                        aria-label="Imagen siguiente"
+                    >
+                        <ArrowForwardIosIcon sx={{ fontSize: '2rem' }} />
+                    </NavigationButton>
+                )}
+            </LightboxContainer>
+        </Container>
+    );
 };
 
 export default ApartmentDetails;

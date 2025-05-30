@@ -19,7 +19,7 @@ const Inmobiliaria = () => {
           align="center"
           gutterBottom
           sx={{
-            color: "#3756a9",
+            color: "#1C3155",
             fontWeight: 700,
             mb: { xs: 4, md: 6 }, 
           }}

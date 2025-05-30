@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -20,120 +20,43 @@ import DriveEtaIcon from "@mui/icons-material/DriveEta";
 import LandscapeIcon from '@mui/icons-material/Landscape';
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
 
 const houseListings = [
-  // --- PROPIEDADES EN VENTA ---
+
+// --- PROPIEDADES EN VENTA ---
   {
     id: "casa-1",
     title: "Cabañas de Montaña - Venta",
     image: "/images/inmobiliaria/Cabañas-1.jpg",
-    location: " San Cristóbal, San Cristóbal, Táchira",
+    location: " San Cristóbal, Táchira, Venezuela",
     price: "$",
     type: "Venta",
     newOnMarket: true,
-    bedrooms: 5,
-    bathrooms: 5,
-    parkingSpaces: 2,
-    terrainSize: "300,0 m²",
-  },
-  {
-    id: "venta-2", 
-    title: "Casa Familiar Moderna - Venta",
-    image: "/images/inmobiliaria/Cabañas-1.jpg",
-    location: " San Cristóbal, San Cristóbal, Táchira",
-    price: "$",
-    type: "Venta",
-    newOnMarket: true,
-    bedrooms: 4,
-    bathrooms: 3,
-    parkingSpaces: 1,
-    terrainSize: "250,0 m²",
-  },
-  {
-    id: "venta-3", 
-    title: "Villa con Jardín - Venta",
-    image: "/images/inmobiliaria/Cabañas-1.jpg",
-    location: " San Cristóbal, San Cristóbal, Táchira",
-    price: "$",
-    type: "Venta",
-    newOnMarket: true,
-    bedrooms: 3,
-    bathrooms: 2,
-    parkingSpaces: 2,
-    terrainSize: "280,0 m²",
-  },
-  {
-    id: "venta-4", 
-    title: "Amplia Residencia - Venta",
-    image: "/images/inmobiliaria/Cabañas-1.jpg",
-    location: " San Cristóbal, San Cristóbal, Táchira",
-    price: "",
-    type: "Venta",
-    newOnMarket: true,
-    bedrooms: 5,
-    bathrooms: 4,
-    parkingSpaces: 2,
-    terrainSize: "320,0 m²",
-  },
-  {
-    id: "venta-5", 
-    title: "Mansión Exclusiva - Venta",
-    image: "/images/inmobiliaria/Cabañas-1.jpg",
-    location: " San Cristóbal, San Cristóbal, Táchira",
-    price: "$",
-    type: "Venta",
-    newOnMarket: false,
-    bedrooms: 6,
-    bathrooms: 5,
-    parkingSpaces: 3,
-    terrainSize: "400,0 m²",
+    bedrooms: false,
+    bathrooms: false,
+    parkingSpaces: false,
+    terrainSize: "m²",
   },
 
+
   // --- PROPIEDADES EN ALQUILER ---
+
   {
-    id: "alquiler-1", 
-    title: "Apartamento Céntrico - Alquiler",
-    image: "", 
+    id: "alquiler-1",
+    title: "Casa Amplia en Mérida - Alquiler",
+    image: "/images/inmobiliaria/Cabañas-1.jpg",
     location: " Mérida, Mérida, Venezuela",
     price: "$",
     type: "Alquiler",
-    newOnMarket: true,
-    bedrooms: 2,
-    bathrooms: 2,
-    parkingSpaces: 1,
-    terrainSize: null, 
-  },
-  {
-    id: "alquiler-2", 
-    title: "Apartamento Céntrico - Alquiler",
-    image: "", 
-    location: " Mérida, Mérida, Venezuela",
-    price: "$",
-    type: "Alquiler",
-    newOnMarket: true,
-    bedrooms: 2,
-    bathrooms: 2,
-    parkingSpaces: 1,
-    terrainSize: null, 
-  },
-  {
-    id: "alquiler-3", 
-    title: "Apartamento Céntrico - Alquiler",
-    image: "", 
-    location: " Mérida, Mérida, Venezuela",
-    price: "$",
-    type: "Alquiler",
-    newOnMarket: true,
-    bedrooms: 2,
-    bathrooms: 2,
-    parkingSpaces: 1,
-    terrainSize: null, 
+    newOnMarket: false,
+    bedrooms: false,
+    bathrooms: false,
+    parkingSpaces: false,
+    terrainSize: "m²",
   },
 
 ];
-
 
 const HouseCard = ({ house, index }) => {
   const theme = useTheme();
@@ -156,17 +79,20 @@ const HouseCard = ({ house, index }) => {
   };
 
   return (
-    <Grid  item
-    xs={12} sm={8} md={6} lg={4}
-    ref={ref}
-    sx={{ display: 'flex', flexDirection: 'column' }}>
-      <animated.div   
-      style={{
-            ...springProps,
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-        }}>
+    <Grid
+      item
+      xs={12} sm={8} md={6} lg={4}
+      ref={ref}
+      sx={{ display: 'flex', flexDirection: 'column' }}
+    >
+      <animated.div
+        style={{
+          ...springProps,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
         <Card
           sx={{
             display: "flex",
@@ -188,7 +114,7 @@ const HouseCard = ({ house, index }) => {
           }}
         >
           <Box
-             sx={{
+            sx={{
               position: "relative",
               width: "100%",
               height: 200,
@@ -196,59 +122,60 @@ const HouseCard = ({ house, index }) => {
             }}
           >
             <CardMedia
-               component="img"
-               sx={{
-                 width: "100%",
-                 height: "100%",
-                 display: "block",
-                 objectFit: "cover",
-               }}
-              image={house.image}
+              component="img"
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "block",
+                objectFit: "cover",
+              }}
+              image={house.image || '/images/placeholder-house.jpg'}
               alt={house.title}
             />
-            {/* Etiqueta "Venta o Alquiler" */}
+
             <Box
               sx={{
-              position: 'absolute',
-              top: 12,
-              left: 12,
-              backgroundColor: house.type === 'Venta' ? theme.palette.primary.main : theme.palette.success.main,
-              color: 'white',
-              px: 1,
-              py: 0.5,
-              borderRadius: 1,
-              fontWeight: 600,
-              fontSize: '0.9rem',
-              display: 'flex',
-              alignItems: 'center',
+                position: 'absolute',
+                top: 12,
+                left: 12,
+                backgroundColor: house.type === 'Venta' ? "#1C3155" : theme.palette.success.main,
+                color: 'white',
+                px: 1,
+                py: 0.5,
+                borderRadius: 1,
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                display: 'flex',
+                alignItems: 'center',
               }}
-              >
+            >
               <Typography component="span" sx={{ fontSize: '0.9rem', mr: 0.5 }}>
-              {house.type === 'Venta' ? '💰' : '🏠'}
-                </Typography>
-                {house.type}
-              </Box>
+                {house.type === 'Venta' ? '💰' : '🔑'}
+              </Typography>
+              {house.type}
+            </Box>
+
             <Typography
-                variant="body1"
-                sx={{
-                  position: 'absolute',
-                  bottom: 12,
-                  right: 12,
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                  color: 'white',
-                  px: 1.5,
-                  py: 0.5,
-                  borderRadius: 1,
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                }}
+              variant="body1"
+              sx={{
+                position: 'absolute',
+                bottom: 12,
+                right: 12,
+                backgroundColor: "#1C3155",
+                color: 'white',
+                px: 1.5,
+                py: 0.5,
+                borderRadius: 1,
+                fontWeight: 600,
+                fontSize: '1.3rem',
+              }}
             >
               {house.price}
             </Typography>
           </Box>
 
           <CardContent
-             sx={{
+            sx={{
               flexGrow: 1,
               p: { xs: 1.5, md: 2 },
               display: "flex",
@@ -256,12 +183,12 @@ const HouseCard = ({ house, index }) => {
             }}
           >
             <Typography
-                 variant="body2"
-                 color="text.secondary"
-                 sx={{
-                   fontSize: '0.85rem',
-                   mb: 0.5,
-                 }}
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                fontSize: '0.85rem',
+                mb: 0.5,
+              }}
             >
               Propiedad en {house.type.toLowerCase()}
             </Typography>
@@ -273,8 +200,8 @@ const HouseCard = ({ house, index }) => {
                 color: theme.palette.text.primary,
                 mb: 0.5,
                 lineHeight: 1.2,
-                fontSize: '1.1rem',
-                minHeight: '2.4em',
+                fontSize: '1.2rem',
+                textAlign: 'center',
               }}
             >
               {house.title}
@@ -289,53 +216,53 @@ const HouseCard = ({ house, index }) => {
               }}
             >
               <LocationOnIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-              <Typography  variant="body2" sx={{ fontSize: '0.9rem' }}>
+              <Typography variant="body2" sx={{ fontSize: '0.9rem' }}>
                 {house.location}
               </Typography>
             </Box>
             <Box sx={{ mb: 2 }}>
-                {house.terrainSize && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, color: theme.palette.text.secondary }}>
-                      <LandscapeIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                      <Typography variant="body2" sx={{ fontSize: '1rem' }}>
-                          Área: {house.terrainSize} 
-                      </Typography>
-                  </Box>
+              {house.terrainSize && (
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, color: theme.palette.text.secondary }}>
+                  <LandscapeIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
+                  <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+                    Área: {house.terrainSize}
+                  </Typography>
+                </Box>
               )}
               <Stack
-               direction="row"
-               spacing={1.5}
-               alignItems="center"
-               flexWrap="wrap"
-               useFlexGap
-               sx={{
-                   '& > div': {
-                       mb: { xs: 0.5, sm: 0 },
-                       display: 'flex',
-                       alignItems: 'center',
-                       fontSize: '0.3rem',
-                   }
-               }}
+                direction="row"
+                spacing={1.5}
+                alignItems="center"
+                flexWrap="wrap"
+                useFlexGap
+                sx={{
+                  '& > div': {
+                    mb: { xs: 0.5, sm: 0 },
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: '0.3rem',
+                  }
+                }}
               >
                 {house.bedrooms !== null && (
                   <Box>
                     <HotelIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '1rem' }}>{house.bedrooms}</Typography>
-                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem'}}>Hab.</Typography>
+                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '1rem', color: 'black' }}>{house.bedrooms}</Typography>
+                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem', color: 'black' }}>Hab.</Typography>
                   </Box>
                 )}
                 {house.bathrooms !== null && (
                   <Box>
-                   <BathtubIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{house.bathrooms}</Typography>
-                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem'  }}>Baños</Typography>
+                    <BathtubIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
+                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem', color: 'black' }}>{house.bathrooms}</Typography>
+                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem', color: 'black' }}>Baños</Typography>
                   </Box>
                 )}
                 {house.parkingSpaces !== null && (
                   <Box>
                     <DriveEtaIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{house.parkingSpaces}</Typography>
-                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem'}}>Estac.</Typography>
+                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem', color: 'black' }}>{house.parkingSpaces}</Typography>
+                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem', color: 'black' }}>Estac.</Typography>
                   </Box>
                 )}
               </Stack>
@@ -349,12 +276,12 @@ const HouseCard = ({ house, index }) => {
                 width: "100%",
                 borderRadius: 2,
                 fontWeight: 600,
-                color: "#3756a9",
+                color: "#1C3155",
                 py: 0.5,
                 fontSize: '0.9rem',
                 '&:hover': {
-                    backgroundColor: "#3756a9",
-                    color: "white",
+                  backgroundColor: "#1C3155",
+                  color: "white",
                 }
               }}
             >
@@ -368,23 +295,35 @@ const HouseCard = ({ house, index }) => {
 };
 
 const InmobiliariaCasas = () => {
-   const theme = useTheme();
-    const [ref, inView] = useInView({
-      threshold: 0.1,
-      triggerOnce: true,
+  const theme = useTheme();
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
   });
 
   const headerSpring = useSpring({
-      opacity: inView ? 1 : 0,
-      transform: inView ? "translateY(0)" : "translateY(50px)",
-      config: { tension: 280, friction: 60 },
-    });
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(50px)",
+    config: { tension: 280, friction: 60 },
+  });
 
   const [page, setPage] = useState('1');
-   const [filterType, setFilterType] = useState('Venta'); 
-   const itemsPerPage = 6;
+  const [filterType, setFilterType] = useState('Venta');
+  const itemsPerPage = 6;
 
-   const handleChangePage = (event, newPage) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const typeParam = params.get('type');
+    if (typeParam === 'alquiler') {
+      setFilterType('Alquiler');
+    } else {
+      setFilterType('Venta');
+    }
+  }, [location.search]);
+
+  const handleChangePage = (event, newPage) => {
     if (newPage !== null) {
       setPage(newPage);
     }
@@ -394,6 +333,10 @@ const InmobiliariaCasas = () => {
     if (newFilter !== null) {
       setFilterType(newFilter);
       setPage('1');
+
+      const newParams = new URLSearchParams(location.search);
+      newParams.set('type', newFilter.toLowerCase());
+      window.history.replaceState({}, '', `${location.pathname}?${newParams.toString()}`);
     }
   };
 
@@ -429,123 +372,110 @@ const InmobiliariaCasas = () => {
               Nuestras Propiedades Destacadas
             </Typography>
             <Typography
-               variant="body1"
-               color="text.secondary"
-               sx={{ maxWidth: "700px", mx: "auto", lineHeight: 1.6 }}
+              variant="body1"
+              color="text.secondary"
+              sx={{ maxWidth: "700px", mx: "auto", lineHeight: 1.6 }}
             >
               Explora nuestra cuidada selección de propiedades, diseñadas para ofrecerte el hogar o espacio de tus sueños con la mejor calidad y ubicación.
             </Typography>
           </animated.div>
         </Box>
 
-        {/* Botones de Filtro (Venta, Alquiler) */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-                  <ToggleButtonGroup
-                    value={filterType}
-                    exclusive
-                    onChange={handleFilterChange}
-                    aria-label="apartment type filter"
-                    sx={{
-                      borderRadius: 2,
-                      '& .MuiToggleButtonGroup-grouped': {
-                        margin: theme.spacing(0.5),
-                        border: '1px solid',
-                        borderColor: theme.palette.grey[400],
-                        '&.Mui-selected': {
-                          backgroundColor: "#3756a9",
-                          color: 'white',
-                          borderColor: "#3756a9",
-                          '&:hover': {
-                            backgroundColor: "#3756a9",
-                          },
-                        },
-                        '&:not(:first-of-type)': {
-                          borderRadius: 2,
-                          borderLeft: '1px solid',
-                          borderColor: theme.palette.grey[400],
-                        },
-                        '&:first-of-type': {
-                          borderRadius: 2,
-                        },
-                      },
-                    }}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: { xs: 4, md: 6 } }}>
+          <ToggleButtonGroup
+            value={filterType}
+            exclusive
+            onChange={handleFilterChange}
+            aria-label="filtro de tipo de propiedad"
+            sx={{
+              borderRadius: 2,
+              '& .MuiToggleButtonGroup-grouped': {
+                margin: theme.spacing(0.5),
+                border: '1px solid',
+                borderColor: theme.palette.grey[400],
+                '&.Mui-selected': {
+                  backgroundColor: "#1C3155",
+                  color: 'white',
+                  borderColor: "#1C3155",
+                  '&:hover': {
+                    backgroundColor: "#1C3155",
+                  },
+                },
+                '&:not(:first-of-type)': {
+                  borderRadius: 2,
+                  borderLeft: '1px solid',
+                  borderColor: theme.palette.grey[400],
+                },
+                '&:first-of-type': {
+                  borderRadius: 2,
+                },
+              },
+            }}
           >
-         <ToggleButton value="Venta" sx={{
-          width: 100,
-          fontWeight: 600,
-          fontSize: '0.9rem',
-          color: "#3756a9",
-          }}>
-          Venta
-          </ToggleButton>
-          <ToggleButton value="Alquiler" sx={{
-          width: 100,
-          fontWeight: 600,
-          fontSize: '0.9rem',
-          color: "#3756a9",
-          }}>
-          Alquiler</ToggleButton>
+            <ToggleButton value="Venta" sx={{ fontWeight: 600, color: "#1C3155" }}>Venta</ToggleButton>
+            <ToggleButton value="Alquiler" sx={{ fontWeight: 600, color: "#1C3155" }}>Alquiler</ToggleButton>
           </ToggleButtonGroup>
         </Box>
 
         <Grid container spacing={4} justifyContent="center" alignItems="stretch">
-        {currentHouses.map((house, index) => (
+          {currentHouses.map((house, index) => (
             <HouseCard key={house.id} house={house} index={index} />
           ))}
         </Grid>
 
-       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, mb: 4 }}>
-                <ToggleButtonGroup
-                  value={page}
-                  exclusive
-                  onChange={handleChangePage}
-                  aria-label="pagination"
-                  sx={{
-                    borderRadius: 2,
-                    '& .MuiToggleButtonGroup-grouped': {
-                      margin: theme.spacing(0.5),
-                      border: '1px solid',
-                      borderColor: theme.palette.grey[400],
-                      '&.Mui-selected': {
-                        backgroundColor: "#3756a9",
-                        color: 'white',
-                        borderColor: "#3756a9",
-                        '&:hover': {
-                          backgroundColor: "#3756a9",
-                        },
-                      },
-                      '&:not(:first-of-type)': {
-                        borderRadius: 2,
-                        borderLeft: '1px solid',
-                        borderColor: theme.palette.grey[400],
-                      },
-                      '&:first-of-type': {
-                        borderRadius: 2,
-                      },
+        {totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, mb: 4 }}>
+            <ToggleButtonGroup
+              value={page}
+              exclusive
+              onChange={handleChangePage}
+              aria-label="paginación"
+              sx={{
+                borderRadius: 2,
+                '& .MuiToggleButtonGroup-grouped': {
+                  margin: theme.spacing(0.5),
+                  border: '1px solid',
+                  borderColor: theme.palette.grey[400],
+                  '&.Mui-selected': {
+                    backgroundColor: "#1C3155",
+                    color: 'white',
+                    borderColor: "#1C3155",
+                    '&:hover': {
+                      backgroundColor: "#1C3155",
                     },
+                  },
+                  '&:not(:first-of-type)': {
+                    borderRadius: 2,
+                    borderLeft: '1px solid',
+                    borderColor: theme.palette.grey[400],
+                  },
+                  '&:first-of-type': {
+                    borderRadius: 2,
+                  },
+                },
+              }}
+            >
+              {Array.from({ length: totalPages }, (_, i) => (
+                <ToggleButton
+                  key={i + 1}
+                  value={(i + 1).toString()}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    color: "#1C3155",
                   }}
                 >
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <ToggleButton
-                      key={i + 1}
-                      value={(i + 1).toString()}
-                      sx={{
-                        width: 40,
-                        height: 40,
-                        fontWeight: 600,
-                        fontSize: '1rem',
-                        color: "#3756a9",
-                      }}
-                    >
-                      {i + 1}
-                    </ToggleButton>
-                  ))}
-      </ToggleButtonGroup>
-             </Box>
-           </Container>
-         </Box>
+                  {i + 1}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </Box>
+        )}
+      </Container>
+    </Box>
   );
 };
 
 export default InmobiliariaCasas;
-

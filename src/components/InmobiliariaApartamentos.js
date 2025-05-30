@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react"; 
 import {
   Box,
   Grid,
@@ -20,79 +20,41 @@ import DriveEtaIcon from "@mui/icons-material/DriveEta";
 import LandscapeIcon from '@mui/icons-material/Landscape';
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; 
 
 
 const apartmentListings = [
    // --- APARTAMENTOS EN VENTA ---
   {
-    id: "venta-001", 
+    id: "venta-001",
     title: "Apartamento de Lujo en el Centro",
-    image: "/images/inmobiliaria/apartamento-1.jpg",
+   image: "/images/inmobiliaria/Cabañas-1.jpg",
     location: "Centro, Mérida, Venezuela",
-    price: "$120.000",
+    price: "$",
     type: "Venta",
     newOnMarket: true,
-    bedrooms: 3,
-    bathrooms: 2,
-    parkingSpaces: 1,
-    areaSize: "150 m²",
-  },
-  {
-    id: "venta-002", 
-    title: "Apartamento de Lujo en el Centro",
-    image: "",
-    location: "Centro, Mérida, Venezuela",
-    price: "$120.000",
-    type: "Venta",
-    newOnMarket: true,
-    bedrooms: 3,
-    bathrooms: 2,
-    parkingSpaces: 1,
-    areaSize: "150 m²",
+    bedrooms: false,
+    bathrooms: false,
+    parkingSpaces: false,
+    areaSize: "m²",
   },
 
   // --- APARTAMENTOS EN ALQUILER ---
 
   {
-    id: "alquiler-001", 
+    id: "alquiler-001",
     title: "Penthouse de Lujo con Terraza Panorámica y Jacuzzi Privado",
-    image: "",
+    image: "/images/inmobiliaria/Cabañas-1.jpg",
     location: "Campo Claro, Mérida, Venezuela",
-    price: "$250.000",
+    price: "$",
     type: "Alquiler",
     newOnMarket: true,
-    bedrooms: 4,
-    bathrooms: 4,
-    parkingSpaces: 3,
-    areaSize: "300 m²",
+    bedrooms: false,
+    bathrooms:false,
+    parkingSpaces: false,
+    areaSize: " m²",
   },
-  {
-    id: "alquiler-002", 
-    title: "Penthouse de Lujo con Terraza Panorámica y Jacuzzi Privado",
-    image: "",
-    location: "Campo Claro, Mérida, Venezuela",
-    price: "$250.000",
-    type: "Alquiler",
-    newOnMarket: true,
-    bedrooms: 4,
-    bathrooms: 4,
-    parkingSpaces: 3,
-    areaSize: "300 m²",
-  },
-  {
-    id: "alquiler-003", 
-    title: "Penthouse de Lujo con Terraza Panorámica y Jacuzzi Privado",
-    image: "",
-    location: "Campo Claro, Mérida, Venezuela",
-    price: "$250.000",
-    type: "Alquiler",
-    newOnMarket: true,
-    bedrooms: 4,
-    bathrooms: 4,
-    parkingSpaces: 3,
-    areaSize: "300 m²",
-  },
+
 
 ];
 
@@ -178,7 +140,7 @@ const ApartmentCard = ({ apartment, index }) => {
               position: 'absolute',
               top: 12,
               left: 12,
-              backgroundColor: apartment.type === 'Venta' ? theme.palette.primary.main : theme.palette.success.main,
+              backgroundColor: "#1C3155",
               color: 'white',
               px: 1,
               py: 0.5,
@@ -200,13 +162,13 @@ const ApartmentCard = ({ apartment, index }) => {
                 position: 'absolute',
                 bottom: 12,
                 right: 12,
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                backgroundColor: "#1C3155",
                 color: 'white',
                 px: 1.5,
                 py: 0.5,
                 borderRadius: 1,
                 fontWeight: 600,
-                fontSize: '0.9rem',
+                fontSize: '1.3rem',
               }}
             >
               {apartment.price}
@@ -241,6 +203,7 @@ const ApartmentCard = ({ apartment, index }) => {
                 lineHeight: 1.2,
                 fontSize: '1.1rem',
                 minHeight: '2.4em',
+                textAlign: 'center', 
               }}
             >
               {apartment.title}
@@ -285,29 +248,29 @@ const ApartmentCard = ({ apartment, index }) => {
               >
                 {apartment.bedrooms !== undefined && (
                   <Box>
-                    <HotelIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '1rem' }}>{apartment.bedrooms}</Typography>
-                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem'}}>Hab.</Typography>
+                    <HotelIcon sx={{ fontSize: '1rem', mr: 0.5}} />
+                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '1rem',  color: 'black',}}>{apartment.bedrooms}</Typography>
+                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem', color: 'black',}}>Hab.</Typography>
                   </Box>
                 )}
                 {apartment.bathrooms !== undefined && (
                   <Box>
                     <BathtubIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{apartment.bathrooms}</Typography>
-                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem'  }}>Baños</Typography>
+                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem', color: 'black', }}>{apartment.bathrooms}</Typography>
+                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem',  color: 'black'  }}>Baños</Typography>
                   </Box>
                 )}
                 {apartment.parkingSpaces !== undefined && (
                   <Box>
                     <DriveEtaIcon sx={{ fontSize: '1rem', mr: 0.5 }} />
-                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>{apartment.parkingSpaces}</Typography>
-                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem'}}>Estac.</Typography>
+                    <Typography component="span" sx={{ fontWeight: 600, fontSize: '0.9rem',  color: 'black',}}>{apartment.parkingSpaces}</Typography>
+                    <Typography component="span" sx={{ ml: 0.5, fontSize: '1rem',  color: 'black',}}>Estac.</Typography>
                   </Box>
                 )}
               </Stack>
             </Box>
 
-            <Button            
+            <Button
         color="primary"
         onClick={() => handleSeeDetails(apartment.id)}
         sx={{
@@ -315,11 +278,11 @@ const ApartmentCard = ({ apartment, index }) => {
         width: "100%",
         borderRadius: 2,
         fontWeight: 600,
-        color: "#3756a9",
+        color: "#1C3155",
         py: 0.5,
         fontSize: '0.9rem',
         '&:hover': {
-        backgroundColor: "#3756a9",
+        backgroundColor: "#1C3155",
         color: "white",
         }
         }}
@@ -349,8 +312,21 @@ const InmobiliariaApartamentos = () => {
 
 
   const [page, setPage] = useState('1');
-  const [filterType, setFilterType] = useState('Venta'); 
-  const itemsPerPage = 6;
+  const [filterType, setFilterType] = useState('Venta');
+  const itemsPerPage = 5; 
+
+  const location = useLocation(); 
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const typeParam = params.get('type');
+    if (typeParam === 'alquiler') {
+      setFilterType('Alquiler');
+    } else {
+      setFilterType('Venta');
+    }
+  }, [location.search]); 
+
 
   const handleChangePage = (event, newPage) => {
     if (newPage !== null) {
@@ -362,6 +338,10 @@ const InmobiliariaApartamentos = () => {
     if (newFilter !== null) {
       setFilterType(newFilter);
       setPage('1');
+
+      const newParams = new URLSearchParams(location.search);
+      newParams.set('type', newFilter.toLowerCase());
+      window.history.replaceState({}, '', `${location.pathname}?${newParams.toString()}`);
     }
   };
 
@@ -421,11 +401,11 @@ const InmobiliariaApartamentos = () => {
                 border: '1px solid',
                 borderColor: theme.palette.grey[400],
                 '&.Mui-selected': {
-                  backgroundColor: "#3756a9",
+                  backgroundColor: "#1C3155",
                   color: 'white',
-                  borderColor: "#3756a9",
+                  borderColor: "#1C3155",
                   '&:hover': {
-                    backgroundColor: "#3756a9",
+                    backgroundColor: "#1C3155",
                   },
                 },
                 '&:not(:first-of-type)': {
@@ -443,7 +423,7 @@ const InmobiliariaApartamentos = () => {
               width: 100,
               fontWeight: 600,
               fontSize: '0.9rem',
-              color: "#3756a9",
+              color: "#1C3155",
             }}>
               Venta
             </ToggleButton>
@@ -451,7 +431,7 @@ const InmobiliariaApartamentos = () => {
               width: 100,
               fontWeight: 600,
               fontSize: '0.9rem',
-              color: "#3756a9",
+              color: "#1C3155",
             }}>
               Alquiler
             </ToggleButton>
@@ -465,54 +445,56 @@ const InmobiliariaApartamentos = () => {
           ))}
         </Grid>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, mb: 4 }}>
-          <ToggleButtonGroup
-            value={page}
-            exclusive
-            onChange={handleChangePage}
-            aria-label="pagination"
-            sx={{
-              borderRadius: 2,
-              '& .MuiToggleButtonGroup-grouped': {
-                margin: theme.spacing(0.5),
-                border: '1px solid',
-                borderColor: theme.palette.grey[400],
-                '&.Mui-selected': {
-                  backgroundColor: "#3756a9",
-                  color: 'white',
-                  borderColor: "#3756a9",
-                  '&:hover': {
-                    backgroundColor: "#3756a9",
+        {totalPages > 1 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6, mb: 4 }}>
+            <ToggleButtonGroup
+              value={page}
+              exclusive
+              onChange={handleChangePage}
+              aria-label="pagination"
+              sx={{
+                borderRadius: 2,
+                '& .MuiToggleButtonGroup-grouped': {
+                  margin: theme.spacing(0.5),
+                  border: '1px solid',
+                  borderColor: theme.palette.grey[400],
+                  '&.Mui-selected': {
+                    backgroundColor: "#1C3155",
+                    color: 'white',
+                    borderColor: "#1C3155",
+                    '&:hover': {
+                      backgroundColor: "#1C3155",
+                    },
+                  },
+                  '&:not(:first-of-type)': {
+                    borderRadius: 2,
+                    borderLeft: '1px solid',
+                    borderColor: theme.palette.grey[400],
+                  },
+                  '&:first-of-type': {
+                    borderRadius: 2,
                   },
                 },
-                '&:not(:first-of-type)': {
-                  borderRadius: 2,
-                  borderLeft: '1px solid',
-                  borderColor: theme.palette.grey[400],
-                },
-                '&:first-of-type': {
-                  borderRadius: 2,
-                },
-              },
-            }}
-          >
-            {Array.from({ length: totalPages }, (_, i) => (
-              <ToggleButton
-                key={i + 1}
-                value={(i + 1).toString()}
-                sx={{
-                  width: 40,
-                  height: 40,
-                  fontWeight: 600,
-                  fontSize: '1rem',
-                  color: "#3756a9",
-                }}
-              >
-                {i + 1}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </Box>
+              }}
+            >
+              {Array.from({ length: totalPages }, (_, i) => (
+                <ToggleButton
+                  key={i + 1}
+                  value={(i + 1).toString()}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    color: "#1C3155",
+                  }}
+                >
+                  {i + 1}
+                </ToggleButton>
+              ))}
+            </ToggleButtonGroup>
+          </Box>
+        )}
       </Container>
     </Box>
   );
