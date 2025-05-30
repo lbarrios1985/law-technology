@@ -9,12 +9,13 @@ import {
   Button,
   useTheme,
   Container,
-  Stack,
   ToggleButton,
   ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LandscapeIcon from '@mui/icons-material/Landscape';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -27,9 +28,9 @@ const landListings = [
     image: "/images/inmobiliaria/Cabañas-1.jpg",
     description: "Ideal para desarrollo comercial o residencial en una zona céntrica de Mérida.",
     location: "Mérida, Venezuela",
-    price: "$",
+    price: "$120.000",
     type: "Venta",
-    terrainSize: " m²",
+    terrainSize: "1500 m²",
   },
  // --- TERRENOS EN ALQUILER ---
   {
@@ -38,9 +39,9 @@ const landListings = [
     image: "/images/inmobiliaria/Cabañas-1.jpg",
     description: "Excelente ubicación para construir la casa de tus sueños, con servicios en San Juan.",
     location: "San Juan, Venezuela",
-    price: "$",
+    price: "$800/mes",
     type: "Alquiler",
-    terrainSize: "m²",
+    terrainSize: "2200 m²",
   },
 
 ];
@@ -89,7 +90,7 @@ const LandCard = ({ land, index }) => {
             transition: "all 0.3s ease-in-out",
             overflow: "hidden",
             borderRadius: theme.shape.borderRadius * 1,
-            boxShadow: theme.shadows[2],
+            boxShadow: theme.shadows[2], 
             "&:hover": {
               transform: "translateY(-4px)",
               boxShadow: theme.shadows[6],
@@ -119,28 +120,6 @@ const LandCard = ({ land, index }) => {
               image={land.image || '/images/placeholder-land.jpg'}
               alt={land.title}
             />
-
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 12,
-                left: 12,
-                backgroundColor: land.type === 'Venta' ? "#1C3155" : theme.palette.success.main,
-                color: 'white',
-                px: 1,
-                py: 0.5,
-                borderRadius: 1,
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Typography component="span" sx={{ fontSize: '0.9rem', mr: 0.5 }}>
-                {land.type === 'Venta' ? '💰' : '🔑'}
-              </Typography>
-              {land.type}
-            </Box>
 
             <Typography
               variant="body1"
@@ -278,6 +257,7 @@ const InmobiliariaTerrenos = () => {
   const itemsPerPage = 6;
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -306,6 +286,10 @@ const InmobiliariaTerrenos = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate('/inmobiliaria');
+  };
+
   const filteredLands = landListings.filter(land => land.type === filterType);
 
   const startIndex = (parseInt(page) - 1) * itemsPerPage;
@@ -324,8 +308,24 @@ const InmobiliariaTerrenos = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Box ref={ref} sx={{ mb: { xs: 6, md: 8 }, textAlign: "center" }}>
+        <Box ref={ref} sx={{ mb: { xs: 6, md: 8 }, textAlign: "center", position: 'relative' }}>
           <animated.div style={headerSpring}>
+          <IconButton            
+             onClick={handleGoBack}
+             sx={{
+              position: 'absolute',
+                left: 0,
+                top: { xs: '-50px', sm: '50%', md: '50%' }, 
+                transform: { sm: 'translateY(-50%)', md: 'translateY(-50%)' },
+                color: "#1C3155",
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '2rem' },
+                "&:hover": {
+                    backgroundColor: 'transparent',
+               },
+             }}
+         >          
+              <ArrowBackIcon sx={{ fontSize: 'inherit' }} />
+            </IconButton>
             <Typography
               variant="h4"
               component="h2"

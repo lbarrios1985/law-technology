@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grid,
@@ -12,12 +12,14 @@ import {
   Stack,
   ToggleButton,
   ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HotelIcon from "@mui/icons-material/Hotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import DriveEtaIcon from "@mui/icons-material/DriveEta";
 import LandscapeIcon from '@mui/icons-material/Landscape';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; 
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
 import { useNavigate, useLocation } from "react-router-dom"; 
@@ -30,7 +32,7 @@ const apartmentListings = [
     title: "Apartamento de Lujo en el Centro",
    image: "/images/inmobiliaria/Cabañas-1.jpg",
     location: "Centro, Mérida, Venezuela",
-    price: "$",
+    price: "",
     type: "Venta",
     newOnMarket: true,
     bedrooms: false,
@@ -46,7 +48,7 @@ const apartmentListings = [
     title: "Penthouse de Lujo con Terraza Panorámica y Jacuzzi Privado",
     image: "/images/inmobiliaria/Cabañas-1.jpg",
     location: "Campo Claro, Mérida, Venezuela",
-    price: "$",
+    price: "",
     type: "Alquiler",
     newOnMarket: true,
     bedrooms: false,
@@ -133,29 +135,6 @@ const ApartmentCard = ({ apartment, index }) => {
               image={apartment.image}
               alt={apartment.title}
             />
-            {/* Etiqueta "Venta o Alquiler" */}
-            {apartment.newOnMarket && (
-              <Box
-              sx={{
-              position: 'absolute',
-              top: 12,
-              left: 12,
-              backgroundColor: "#1C3155",
-              color: 'white',
-              px: 1,
-              py: 0.5,
-              borderRadius: 1,
-              fontWeight: 600,
-              fontSize: '0.9rem',
-              display: 'flex',
-              alignItems: 'center',
-              }}
-              >
-              <Typography component="span" sx={{ fontSize: '0.9rem', mr: 0.5 }}>
-              {apartment.type === 'Venta' ? '💰' : '🏠'}
-              </Typography>
-              </Box>
-            )}
             <Typography
               variant="body1"
               sx={{
@@ -316,6 +295,7 @@ const InmobiliariaApartamentos = () => {
   const itemsPerPage = 5; 
 
   const location = useLocation(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -345,6 +325,10 @@ const InmobiliariaApartamentos = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate('/inmobiliaria'); 
+  };
+
 
   const filteredApartments = apartmentListings.filter(apartment => apartment.type === filterType);
 
@@ -364,8 +348,24 @@ const InmobiliariaApartamentos = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Box ref={ref} sx={{ mb: { xs: 6, md: 8 }, textAlign: "center" }}>
+        <Box ref={ref} sx={{ mb: { xs: 6, md: 8 }, textAlign: "center", position: 'relative' }}>
           <animated.div style={headerSpring}>
+            <IconButton
+              onClick={handleGoBack}
+              sx={{
+                position: 'absolute',
+                left: 0,
+                top: { xs: '-40px', sm: '50%', md: '50%' }, // 'xs: -40px' posiciona la flecha por encima del título en móviles
+                transform: { sm: 'translateY(-50%)', md: 'translateY(-50%)' },
+                color: "#1C3155",
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '2rem' },
+                "&:hover": {
+                    backgroundColor: 'transparent',
+                },
+              }}
+            >
+              <ArrowBackIcon sx={{ fontSize: 'inherit' }} />
+            </IconButton>
             <Typography
               variant="h4"
               component="h2"

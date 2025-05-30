@@ -9,12 +9,13 @@ import {
   Button,
   useTheme,
   Container,
-  Stack,
   ToggleButton,
   ToggleButtonGroup,
+  IconButton,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "@react-spring/web";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -30,7 +31,7 @@ const localListings = [
     type: "Venta",
     newOnMarket: true,
     description: "Amplio local comercial ideal para cualquier tipo de negocio. Ubicado en el corazón del centro histórico con alto tráfico peatonal.",
-    area: "150 m²",
+    area: " m²",
   },
 // --- LOCALES EN ALQUILER ---
   {
@@ -38,7 +39,7 @@ const localListings = [
     title: "Local para Restaurante con Terraza",
     image: "/images/inmobiliaria/Cabañas-1.jpg",
     location: "Lechería, Anzoátegui, Venezuela",
-    price: "$1.200/mes",
+    price: "$",
     type: "Alquiler",
     newOnMarket: true,
     description: "Listo para acondicionar a tu gusto, este local es ideal para un restaurante con espacio para terraza al aire libre.",
@@ -121,29 +122,6 @@ const LocalCard = ({ local, index }) => {
               image={local.image || '/images/placeholder-local.jpg'}
               alt={local.title}
             />
-
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 12,
-                left: 12,
-                backgroundColor: local.type === 'Venta' ? "#1C3155" : theme.palette.success.main,
-                color: 'white',
-                px: 1,
-                py: 0.5,
-                borderRadius: 1,
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Typography component="span" sx={{ fontSize: '0.9rem', mr: 0.5 }}>
-                {local.type === 'Venta' ? '💰' : '🔑'}
-              </Typography>
-              {local.type}
-            </Box>
-
             <Typography
               variant="body1"
               sx={{
@@ -280,6 +258,7 @@ const InmobiliariaLocales = () => {
   const itemsPerPage = 6;
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -308,6 +287,10 @@ const InmobiliariaLocales = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate('/inmobiliaria');
+  };
+
   const filteredLocals = localListings.filter(local => local.type === filterType);
 
   const startIndex = (parseInt(page) - 1) * itemsPerPage;
@@ -326,8 +309,24 @@ const InmobiliariaLocales = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Box ref={ref} sx={{ mb: { xs: 6, md: 8 }, textAlign: "center" }}>
+        <Box ref={ref} sx={{ mb: { xs: 6, md: 8 }, textAlign: "center", position: 'relative' }}>
           <animated.div style={headerSpring}>
+          <IconButton
+                onClick={handleGoBack}
+                sx={{
+                  position: 'absolute',
+                  left: 0,
+                  top: { xs: '-50px', sm: '50%', md: '50%' }, 
+                  transform: { sm: 'translateY(-50%)', md: 'translateY(-50%)' },
+                  color: "#1C3155",
+                  fontSize: { xs: '2rem', sm: '2.5rem', md: '2rem' },
+                  "&:hover": {
+                      backgroundColor: 'transparent',
+                  },
+                }}
+            >
+              <ArrowBackIcon sx={{ fontSize: 'inherit' }} />
+            </IconButton>
             <Typography
               variant="h4"
               component="h2"

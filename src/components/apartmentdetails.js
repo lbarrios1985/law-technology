@@ -216,8 +216,7 @@ const ApartmentDetails = () => {
 
     const handleOpenInMap = () => {
         if (mapPosition) {
-            // Se corrigió la interpolación de las coordenadas del mapa
-            window.open(`https://www.google.com/maps/search/?api=1&query=${mapPosition[0]},${mapPosition[1]}`, '_blank');
+window.open(`https://www.google.com/maps/search/?api=1&query=${mapPosition[0]},${mapPosition[1]}`, '_blank');
         }
     };
 
