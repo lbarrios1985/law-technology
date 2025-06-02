@@ -167,7 +167,7 @@ const LandCard = ({ land, index }) => {
                 mb: 0.5,
                 lineHeight: 1.2,
                 fontSize: '1.2rem',
-                textAlign: 'center',
+                alignItems: "center",
               }}
             >
               {land.title}

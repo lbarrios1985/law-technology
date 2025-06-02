@@ -205,7 +205,7 @@ const LocalDetails = () => {
                 >
                     <ArrowBackIcon sx={{ fontSize: '1.6rem' }} />
                 </IconButton>
-                <Typography variant="h6" color="error" sx={{ mt: { xs: 6, sm: 8 }, color: "black", }}>
+                <Typography variant="h6" color="error" sx={{ mt: { xs: 6, sm: 8 }, color: "black", fontSize: '1.6rem'}}>
                     Local no encontrado.
                 </Typography>
             </Container>
@@ -345,7 +345,7 @@ const LocalDetails = () => {
                             </Grid>
                         </>
                     ) : (
-                        <Typography variant="caption" sx={{ textAlign: 'center', color: 'black' }}>
+                        <Typography variant="caption" sx={{ textAlign: 'center', color: 'black', fontSize: '1.2rem' }}>
                             No hay imágenes disponibles.
                         </Typography>
                     )}
@@ -495,7 +495,7 @@ const LocalDetails = () => {
                                 },
                             }}
                         >
-                            Abrir en mapa
+                            Ver Ubicación
                         </Button>
                         <Box sx={{ height: '300px' }}>
                             <MapContainer

@@ -182,7 +182,7 @@ const ApartmentCard = ({ apartment, index }) => {
                 lineHeight: 1.2,
                 fontSize: '1.1rem',
                 minHeight: '2.4em',
-                textAlign: 'center', 
+                alignItems: "center",
               }}
             >
               {apartment.title}
@@ -355,7 +355,7 @@ const InmobiliariaApartamentos = () => {
               sx={{
                 position: 'absolute',
                 left: 0,
-                top: { xs: '-40px', sm: '50%', md: '50%' }, // 'xs: -40px' posiciona la flecha por encima del título en móviles
+                top: { xs: '-40px', sm: '50%', md: '50%' }, 
                 transform: { sm: 'translateY(-50%)', md: 'translateY(-50%)' },
                 color: "#1C3155",
                 fontSize: { xs: '2rem', sm: '2.5rem', md: '2rem' },

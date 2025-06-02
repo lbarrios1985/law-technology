@@ -205,7 +205,7 @@ const ApartmentDetails = () => {
                 >
                     <ArrowBackIcon sx={{ fontSize: '1.6rem' }} />
                 </IconButton>
-                <Typography variant="h6" color="error" sx={{ mt: { xs: 6, sm: 8 }, color: "black", }}>
+                <Typography variant="h6" color="error" sx={{ mt: { xs: 6, sm: 8 }, color: "black", fontSize: '1.6rem'}}>
                     Apartamento no encontrado.
                 </Typography>
             </Container>
@@ -344,7 +344,7 @@ window.open(`https://www.google.com/maps/search/?api=1&query=${mapPosition[0]},$
                             </Grid>
                         </>
                     ) : (
-                        <Typography variant="caption" sx={{ textAlign: 'center', color: 'black' }}>
+                        <Typography variant="caption" sx={{ textAlign: 'center', color: 'black', fontSize: '1.2rem' }}>
                             No hay imágenes disponibles.
                         </Typography>
                     )}
@@ -492,7 +492,7 @@ window.open(`https://www.google.com/maps/search/?api=1&query=${mapPosition[0]},$
                                 },
                             }}
                         >
-                            Abrir en mapa
+                            Ver Ubicación
                         </Button>
                         <Box sx={{ height: '300px' }}>
                             <MapContainer
