@@ -70,6 +70,14 @@ const teamMembers = [
       "Asesorías en materia penal. Defensa privada en las distintas etapas del proceso Querella. Solicitudes y diligencias antes Ministerio Público, Tribunales y organismos del Estado.",
     // linkedin: "https://www.linkedin.com/in/hayglee-calderas/",
   },
+  {
+    name: "Silhene Dugarte",
+    image: "images/Silhene.webp",
+    specialization: "Especialista en Derecho Empresarial",
+    activities:
+      "Abogada egresada con honores de la Universidad de Los Andes, con sólida experiencia en Derecho Empresarial y Responsabilidad Penal Adolescente. En el ámbito juvenil, ofrece defensa legal enfocada en la rehabilitación y reinserción. En el área empresarial, brinda asesoría integral para proteger los intereses de las empresas, desde su constitución hasta la gestión de contratos, fusiones y resolución de conflictos. Su enfoque estratégico y humano la convierte en una aliada clave para el desarrollo legal de cualquier organización.",
+    // linkedin: "https://www.linkedin.com/in/hayglee-calderas/",
+  },
 ];
 
 const MemberCard = ({ member, index }) => {
